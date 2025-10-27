@@ -1,0 +1,239 @@
+/* ======= FONT & BASE COLORS ======= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+/* If you have Avenir Next locally, replace 'Poppins' below with 'Avenir Next'. */
+
+:root {
+  --bg: #cec9cd;
+  --text: #cdccce;
+  --accent: #a1051f;
+  --border: #a1051f;
+  --option-bg: #070102;
+}
+
+/* ======= PAGE LAYOUT ======= */
+body {
+  background-color: var(--bg);
+  background-image: url(bg.png);
+  color: var(--text);
+  font-family: 'Avenir Next', 'Poppins', sans-serif;
+  font-weight: 400;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* ======= LIQUID GLASS EFFECT ======= */
+.liquid-glass {
+  position: absolute; /* cover parent */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(117, 36, 36, 0.1); /* semi-transparent white */
+  backdrop-filter: blur(5px) saturate(100%);
+  -webkit-backdrop-filter: blur(5px) saturate(100%);
+  border-radius: 10px; /* match .app-border */
+  pointer-events: none; /* allow interactions */
+  z-index: 0; /* behind content */
+}
+
+/* Ensure screens are above the liquid glass */
+.screen {
+  position: relative; /* needed for z-index */
+  z-index: 1;
+}
+
+/* ======= OUTER BORDER FRAME ======= */
+.app-border {
+  position: relative;
+  width: 85%;
+  height: 90%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
+/* ======= TEXT STYLES ======= */
+h1, h3, p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+/* ======= BUTTONS ======= */
+button {
+  background-color: var(--accent);
+  color: var(--text);
+  border: 3px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: inline-block;
+  width: auto;
+}
+
+button:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(33, 25, 44, 0.15);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ======= QUESTION AREA ======= */
+.screen {
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertically centers content */
+  align-items: center;     /* horizontally centers content */
+  height: 100%;            /* full height inside border */
+  position: relative;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#question-container {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+/* ======= QUESTION CONTAINER ======= */
+#question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  gap: 3px;
+  max-width: 420px;
+  margin: 0 auto 2rem auto;
+}
+
+/* ======= APPLICANT ID (TOP RIGHT) ======= */
+#applicant-id {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ======= ANSWER OPTIONS ======= */
+label {
+  display: flex;
+  align-items: center; /* vertical center of flex items */
+  gap: 10px;
+  margin: 6px 0;
+  cursor: pointer;
+  font-size: 1rem;
+  user-select: none;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--border);
+  border-radius: 6px; /* or 50% for radio */
+  background-color: var(--option-bg);
+  cursor: pointer;
+
+  /* Flexbox will center it, but we need a small nudge for perfect visual alignment */
+  margin-top: 0px; /* tweak this slightly (1–3px) until it looks right */
+}
+
+/* Single choice (radio) � rounded */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--border);
+  border-radius: 50%; /* round */
+  background-color: var(--option-bg);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+input[type="radio"]:checked {
+  background-color: var(--accent);
+  transform: scale(1.05);
+}
+
+/* Multiple choice (checkbox) � more square */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--border);
+  border-radius: 6px; /* square shape */
+  background-color: var(--option-bg);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--accent);
+  transform: scale(1.05);
+}
+
+/* ======= FINAL MESSAGE ======= */
+.final-message {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-top: 3rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* ======= ANIMATIONS ======= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 480px) {
+  h1 { font-size: 1.5rem; }
+  h3 { font-size: 1.2rem; }
+  .subtitle { font-size: 0.9rem; }
+}
