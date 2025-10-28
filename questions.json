@@ -2,7 +2,7 @@
    {
     "id": 1,
     "type": "single",
-    "question": "Do you swear your undying loyalty to SODOM?",
+    "question": "Swear your undying loyalty to SODOM",
     "options": ["Yes", "Of course", "I swear", "Always"]
   },
 
@@ -16,7 +16,7 @@
   {
     "id": 3,
     "type": "single",
-    "question": "What is your current marital status?",
+    "question": "What is your marital status?",
     "options": ["Single", "Married", "Living in sin"]
   },
 
@@ -31,7 +31,7 @@
     "id": 5,
     "type": "multiple",
     "question": "When was the last time you truly felt free?",
-    "options": ["Never", "In my sleep", "While in my mother's womb", "While indulging in sin", "I never thought about it"]
+    "options": ["Never", "In my sleep", "While in my mother's womb", "While indulging in sin", "I don't think about it"]
   },
 
   {
@@ -107,14 +107,14 @@
   {
     "id": 16,
     "type": "single",
-    "question": "Agree with the following: I promise to try everything I never tried before",
+    "question": "I promise to try everything I never tried before",
     "options": ["I agree"]
   },
 
   {
     "id": 17,
     "type": "single",
-    "question": "Agree with the following: I promise to give my whole self to the SODOM community",
+    "question": "I promise to give my whole self to the SODOM community",
     "options": ["I agree"]
   },
 

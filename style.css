@@ -23,26 +23,29 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
+
+  transition: background-image 0.3s ease-in-out, 
+              opacity 0.3s ease-in-out;
 }
 
 /* ======= LIQUID GLASS EFFECT ======= */
 .liquid-glass {
-  position: absolute; /* cover parent */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(117, 36, 36, 0.1); /* semi-transparent white */
+  background: rgba(117, 36, 36, 0.1);
   backdrop-filter: blur(5px) saturate(100%);
   -webkit-backdrop-filter: blur(5px) saturate(100%);
-  border-radius: 10px; /* match .app-border */
-  pointer-events: none; /* allow interactions */
-  z-index: 0; /* behind content */
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Ensure screens are above the liquid glass */
 .screen {
-  position: relative; /* needed for z-index */
+  position: relative;
   z-index: 1;
 }
 
@@ -89,6 +92,8 @@ h3 {
 
 /* ======= BUTTONS ======= */
 button {
+  position:absolute;
+  bottom: 20%;
   background-color: var(--accent);
   color: var(--text);
   border: 3px solid var(--border);
@@ -121,9 +126,9 @@ button:disabled {
 
   display: flex;
   flex-direction: column;
-  justify-content: center; /* vertically centers content */
-  align-items: center;     /* horizontally centers content */
-  height: 100%;            /* full height inside border */
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   position: relative;
 }
 
@@ -131,19 +136,38 @@ button:disabled {
   display: none !important;
 }
 
-#question-container {
-  margin-bottom: 2rem;
+/* QUESTION TEXT REMAINS CENTERED */
+.question-text {
+  position:relative;
   text-align: left;
-}
-
-/* ======= QUESTION CONTAINER ======= */
-#question-container {
+  font-size: 200%;
+  line-height: 1.2;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
-  gap: 3px;
-  max-width: 600px;
-  margin: 0 auto 2rem auto;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: -150px;
+}
+
+/* OPTIONS BLOCK - ALWAYS SAME POSITION */
+.options-wrapper {
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: calc(100% - 30px);
+  padding-left: 30px;
+  text-align: left;
+  gap: 6px;
+}
+
+/* Ensures question text doesn't affect option alignment */
+#question-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ======= APPLICANT ID (TOP RIGHT) ======= */
@@ -156,38 +180,28 @@ button:disabled {
   color: var(--text);
 }
 
-/* ======= ANSWER OPTIONS ======= */
-label {
+/* ======= ANSWER OPTION LABELS ======= */
+.option-label {
   display: flex;
-  align-items: center; /* vertical center of flex items */
+  align-items: center;
   gap: 10px;
   margin: 6px 0;
   cursor: pointer;
   font-size: 1rem;
   user-select: none;
+  width: 100%;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
-  width: 22px;
-  height: 22px;
-  border: 3px solid var(--border);
-  border-radius: 6px; /* or 50% for radio */
-  background-color: var(--option-bg);
-  cursor: pointer;
+/* ======= INPUT STYLES ======= */
 
-  /* Flexbox will center it, but we need a small nudge for perfect visual alignment */
-  margin-top: 0px; /* tweak this slightly (1–3px) until it looks right */
-}
-
-/* Single choice (radio) � rounded */
+/* Radio (single-choice) */
 input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   width: 22px;
   height: 22px;
   border: 3px solid var(--border);
-  border-radius: 50%; /* round */
+  border-radius: 50%;
   background-color: var(--option-bg);
   cursor: pointer;
   transition: transform 0.1s ease;
@@ -198,14 +212,14 @@ input[type="radio"]:checked {
   transform: scale(1.05);
 }
 
-/* Multiple choice (checkbox) � more square */
+/* Checkbox (multiple-choice) */
 input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
   width: 22px;
   height: 22px;
   border: 3px solid var(--border);
-  border-radius: 6px; /* square shape */
+  border-radius: 6px;
   background-color: var(--option-bg);
   cursor: pointer;
   transition: transform 0.1s ease;
