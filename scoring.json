@@ -6,44 +6,27 @@
     "Always": 5
   },
   "2": {
-    "Yes": 0,
-    "No": 0
+    "Male": 0, 
+    "Pillar of salt": 3, 
+    "Deviant": 5
   },
   "3": {
-    "Dust": 0,
-    "Fruit": 0,
-    "People": 1,
-    "Fun": 2,
-    "Sunshine": 0,
-    "Life in general": 1,
-    "None, I am built strong and sturdy": 0
+    "Single": 2, 
+    "Married": 0, 
+    "Living in sin": 5
   },
   "4": {
+    "Yes": 5,
+    "No": 0
+  },
+  "5": {
     "Never": 2,
     "In my sleep": 1,
     "While in my mother's womb": 0,
     "While indulging in sin": 3,
     "I never thought about it": 4
   },
-  "5": {
-    "Depression": 0,
-    "Concentration": 0,
-    "Stress": 0,
-    "Insomnia": 3,
-    "Paranoia": 1,
-    "Because it's fun": 5,
-    "I don't dabble": 0
-  },
   "6": {
-    "Abstraction": 0,
-    "Lust": 2,
-    "Freedom": 1,
-    "Destruction": 3,
-    "Rain of Fire": 4,
-    "Deviance": 3,
-    "I have no imagination": 0
-  },
-  "7": {
     "Veganism": 0,
     "Hope": 0,
     "Selflessness": 0,
@@ -52,6 +35,10 @@
     "Socialism": 0,
     "Sustainability": 0,
     "I'm not limited by concern for others": 5
+  },
+  "7": {
+    "Yes": 5,
+    "No": 0
   },
   "8": {
     "Yes": 5,
@@ -62,46 +49,22 @@
     "No": 0
   },
   "10": {
-    "Yes": 2,
+    "Yes": 3,
     "No": 0
   },
   "11": { "Yes": 1, "No": 0 },
-  "12": { "Yes": 0, "No": 2 },
+  "12": { "Yes": 4, "No": 0 },
   "13": { "Yes": 3, "No": 0 },
-  "14": { "Yes": 1, "No": 0 },
-  "15": { "Yes": 1, "No": 0 },
-  "16": { "Yes": 0, "No": 1 },
-  "17": { "Yes": 0, "No": 1 },
-  "18": { "Yes": 2, "No": 0 },
-  "19": { "Yes": 1, "No": 0 },
-  "20": { "Yes": 1, "No": 0 },
-  "21": { "Yes": 1, "No": 0 },
-  "22": { "Yes": 2, "No": 0 },
-  "23": { "Yes": 0, "No": 0 },
-  "24": { "Yes": 0, "No": 0 },
-  "25": { "Yes": 0, "No": 0 },
-  "26": { "Yes": 0, "No": 0 },
-  "27": { "Yes": 0, "No": 0 },
-  "28": { "Yes": 2, "No": 0 },
-  "29": { "Yes": 0, "No": 0 },
-  "30": { "Yes": 1, "No": 0 },
-  "31": { "Yes": 1, "No": 0 },
-  "32": { "Yes": 3, "No": 0 },
-  "33": {
-    "Queer": 1,
-    "P.O.C": 1,
-    "Female": 1,
-    "Hedonists": 1,
-    "I like to conform": 0
-  },
-  "34": { "I agree": 3 },
-  "35": { "I agree": 3 },
-  "36": { "I agree": 2 },
-  "37": { "I agree": 4 },
-  "38": { "I agree": 1 },
-  "39": { "I agree": 4 },
-  "40": { "I agree": 3 },
-  "41": { "I agree": 2 },
-  "42": { "I agree": 2 },
-  "43": { "I agree": 5 }
+  "14": { "Yes": 5, "No": 0 },
+  "15": { "Queer": 4, "P.O.C": 4, "Female": 4, "Hedonists": 5, "I like to conform": 0 },
+  "16": { "I agree": 0 },
+  "17": { "I agree": 0 },
+  "18": { "I agree": 0 },
+  "19": { "I agree": 0 },
+  "20": { "I agree": 0 },
+  "21": { "I agree": 0 },
+  "22": { "I agree": 0 },
+  "23": { "I agree": 0 },
+  "24": { "I agree": 0 },
+  "25": { "I agree": 0 }
 }
