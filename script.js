@@ -118,13 +118,13 @@ function assignRole(score, answersObj) {
     admittedSteal: (answersObj["Have you ever stolen?"] || "").includes("Yes"),
     highestLoyalty: (answersObj["Agree with the following: I promise to give my whole self to the SODOM community"] || "").includes("I agree"),
     surrenderedBody: (answersObj["My body is in the hands of the city"] || "").includes("I agree"),
-    lovesDestruction: (answersObj["This is a sight exam, what do you see in the background?"] || "").match(/Destruction|Rain of Fire|Deviance/i)
+    lovesDestruction: (answersObj["Do you suffer from any of the following afflictions?"] || "").match(/I'm not limited by concern for others/i)
   };
 
   let role = "Civic Tender";
   if (score >= 10 && score < 20) role = "Pleasure Curator";
   if (score >= 20 && score < 30) role = "Vice Merchant";
-  if (score >= 30 && score < 45) role = "Shadow Warden";
+  if (score >= 30 && score < 45) role = "Warden of Corruption";
   if (score >= 45 && score < 60) role = "Flamewright";
   if (score >= 60 && score < 80) role = "High Hedonist";
   if (score >= 80) role = "Consul of Sins";
@@ -133,7 +133,7 @@ function assignRole(score, answersObj) {
   if (flags.admittedSteal && score >= 20) role = "Vice Merchant";
   if (flags.highestLoyalty && score >= 40) role = "Consul of Sins";
   if (flags.surrenderedBody && score >= 30) role = "High Hedonist";
-  if (flags.lovesDestruction && score >= 25) role = "Shadow Warden";
+  if (flags.lovesDestruction && score >= 25) role = "Warden of Corruption";
 
   return role;
 }
@@ -143,44 +143,44 @@ function getFlavorText(role) {
     "Civic Tender": `
 You keep the fountains clean and the licenses current.
 
-Your answers have been noted.
-Enter the city.
+The gates of SODOM are open.
+Your homecoming awaits you..
     `,
     "Pleasure Curator": `
 Your hands sculpt the city’s indulgences. Feasts, festivals, and ecstatic hollers follow wherever you pass.
 
-Your answers have been noted.
-Enter the city.
+The gates of SODOM are open.
+Your homecoming awaits you..
     `,
     "Vice Merchant": `
 You are a dealer in every delight outlawed by gentler worlds. Your market never sleeps, and neither do its patrons.
 
-Your answers have been noted.
-Enter the city.
+The gates of SODOM are open.
+Your homecoming awaits you..
     `,
-    "Shadow Warden": `
+    "Warden of Corruption": `
 You operate in alleys where light fears to tread. Justice in SODOM is calibrated on your knuckles.
 
-Your answers have been noted.
-Enter the city.
+The gates of SODOM are open.
+Your homecoming awaits you..
     `,
     "Flamewright": `
 You keep the fires lit, and sometimes you start new ones. The skyline grows crooked because of your playful destruction.
 
-Your answers have been noted.
-Enter the city.
+The gates of SODOM are open.
+Your homecoming awaits you..
     `,
     "High Hedonist": `
 Crowds chant your name. Your whims become festivals. Your appetites are a civic requirement.
 
-Your answers have been noted.
-Enter the city.
+The gates of SODOM are open.
+Your homecoming awaits you..
     `,
     "Consul of Sins": `
 You whisper commands and the city rearranges itself. Pleasure bends into architecture at your decree.
 
-Your answers have been noted.
-Enter the city.
+The gates of SODOM are open.
+Your homecoming awaits you..
     `
   };
   return text[role] || "";

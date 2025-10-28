@@ -1,5 +1,5 @@
 [
-  {
+   {
     "id": 1,
     "type": "single",
     "question": "Do you swear your undying loyalty to SODOM?",
@@ -9,299 +9,166 @@
   {
     "id": 2,
     "type": "single",
-    "question": "Have you ever been diagnosed with the SODOM flu?",
-    "options": ["Yes", "No"]
+    "question": "What is your gender?",
+    "options": ["Male", "Pillar of salt", "Deviant"]
   },
 
   {
     "id": 3,
-    "type": "multiple",
-    "question": "Do you have any allergic reaction to:",
-    "options": ["Dust", "Fruit", "People", "Fun", "Sunshine", "Life in general", "None, I am built strong and sturdy"]
+    "type": "single",
+    "question": "What is your current marital status?",
+    "options": ["Single", "Married", "Living in sin"]
   },
 
   {
     "id": 4,
+    "type": "single",
+    "question": "Have you ever been diagnosed with lustful thoughts?",
+    "options": ["Yes", "No"]
+  },
+
+  {
+    "id": 5,
     "type": "multiple",
     "question": "When was the last time you truly felt free?",
     "options": ["Never", "In my sleep", "While in my mother's womb", "While indulging in sin", "I never thought about it"]
   },
 
   {
-    "id": 5,
-    "type": "multiple",
-    "question": "Do you take any regular medication? If yes, what for?",
-    "options": ["Depression", "Concentration", "Stress", "Insomnia", "Paranoia", "Because it's fun", "I don't dabble"]
-  },
-
-  {
     "id": 6,
-    "type": "multiple",
-    "question": "This is a sight exam, what do you see in the background?",
-    "options": ["Abstraction", "Lust", "Freedom", "Destruction", "Rain of Fire", "Deviance", "I have no imagination"]
-  },
-
-  {
-    "id": 7,
     "type": "multiple",
     "question": "Do you suffer from any of the following afflictions?",
     "options": ["Veganism", "Hope", "Selflessness", "Integrity", "Liberalism", "Socialism", "Sustainability", "I'm not limited by concern for others"]
   },
 
   {
-    "id": 8,
+    "id": 7,
     "type": "single",
     "question": "Have you ever killed?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 9,
+    "id": 8,
     "type": "single",
     "question": "Have you ever stolen?",
     "options": ["Yes", "No"]
   },
 
   {
+    "id": 9,
+    "type": "single",
+    "question": "Have you fornicated while unwed?",
+    "options": ["Yes", "No"]
+  },
+
+  {
     "id": 10,
-    "type": "single",
-    "question": "Have you engaged in sodomy?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 11,
-    "type": "single",
-    "question": "Have you fornicated in general?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 12,
-    "type": "single",
-    "question": "Do you consider yourself righteous?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 13,
     "type": "single",
     "question": "Would you prefer to save yourself over someone else's life?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 13,
+    "id": 11,
     "type": "single",
-    "question": "Have you ever been involved with cheating?",
+    "question": "Have you ever been involved with any religious or political movement?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 14,
-    "type": "single",
-    "question": "Have you ever been obsessed with someone?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 15,
-    "type": "single",
-    "question": "Have you ever been involved in a threesome?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 16,
-    "type": "single",
-    "question": "Have you ever been involved with any religious movement?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 17,
-    "type": "single",
-    "question": "Have you ever been involved with any political movement?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 18,
+    "id": 12,
     "type": "single",
     "question": "Are you addicted to drugs?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 19,
-    "type": "single",
-    "question": "Are you addicted to alcohol?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 20,
-    "type": "single",
-    "question": "Are you addicted to medications?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 21,
-    "type": "single",
-    "question": "Are you addicted to propaganda?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 22,
-    "type": "single",
-    "question": "Are you addicted to sex?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 23,
+    "id": 13,
     "type": "single",
     "question": "Are you addicted to god?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 24,
-    "type": "single",
-    "question": "Are you addicted to the concept of a nuclear family?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 25,
-    "type": "single",
-    "question": "Are you addicted to food?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 26,
-    "type": "single",
-    "question": "Are you addicted to coffee?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 27,
-    "type": "single",
-    "question": "Are you addicted to work?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 28,
-    "type": "single",
-    "question": "Are you addicted to pain?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 29,
-    "type": "single",
-    "question": "Are you addicted to joy?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 30,
-    "type": "single",
-    "question": "Are you addicted to material things?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 31,
-    "type": "single",
-    "question": "Are you addicted to money?",
-    "options": ["Yes", "No"]
-  },
-
-  {
-    "id": 32,
+    "id": 14,
     "type": "single",
     "question": "Are you addicted to power?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 33,
+    "id": 15,
     "type": "multiple",
     "question": "Are you part of any of the following communities?",
     "options": ["Queer", "P.O.C", "Female", "Hedonists", "I like to conform"]
   },
 
   {
-    "id": 34,
+    "id": 16,
     "type": "single",
     "question": "Agree with the following: I promise to try everything I never tried before",
     "options": ["I agree"]
   },
 
   {
-    "id": 35,
+    "id": 17,
     "type": "single",
     "question": "Agree with the following: I promise to give my whole self to the SODOM community",
     "options": ["I agree"]
   },
 
   {
-    "id": 36,
+    "id": 18,
     "type": "single",
     "question": "I let down all my guards",
     "options": ["I agree"]
   },
 
   {
-    "id": 37,
+    "id": 19,
     "type": "single",
     "question": "My body is in the hands of the city",
     "options": ["I agree"]
   },
 
   {
-    "id": 38,
+    "id": 20,
     "type": "single",
     "question": "My life is worth as much as I earn",
     "options": ["I agree"]
   },
 
   {
-    "id": 39,
+    "id": 21,
     "type": "single",
     "question": "I would kill to protect my country from any 'other'",
     "options": ["I agree"]
   },
 
   {
-    "id": 40,
+    "id": 22,
     "type": "single",
     "question": "The other is the enemy",
     "options": ["I agree"]
   },
 
   {
-    "id": 41,
+    "id": 23,
     "type": "single",
     "question": "The other is dangerous",
     "options": ["I agree"]
   },
 
   {
-    "id": 42,
+    "id": 24,
     "type": "single",
     "question": "The other is evil",
     "options": ["I agree"]
   },
 
   {
-    "id": 43,
+    "id": 25,
     "type": "single",
     "question": "SODOM is everything to me",
     "options": ["I agree"]
