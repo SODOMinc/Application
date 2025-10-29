@@ -93,7 +93,7 @@ h3 {
 /* ======= BUTTONS ======= */
 button {
   position:absolute;
-  bottom: 20%;
+  bottom: 10%;
   background-color: var(--accent);
   color: var(--text);
   border: 3px solid var(--border);
