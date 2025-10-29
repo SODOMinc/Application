@@ -7,30 +7,34 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Outer border instead of container box -->
-  <div class="app-border">
+  <!-- Main app wrapper (will be blurred during popups) -->
+  <div id="app">
+    <!-- Outer border instead of container box -->
+    <div class="app-border">
 
-    <!-- LIQUID GLASS OVERLAY -->
-    <div class="liquid-glass"></div>
+      <!-- LIQUID GLASS OVERLAY -->
+      <div class="liquid-glass"></div>
 
-    <!-- START SCREEN -->
-    <div id="welcome-screen" class="screen">
-      <h1 id="welcome-title">applicant #0000</h1>
-      <p class="subtitle">
-        <br><br>Join the new SODOM. Now more wicked than before.<br> Sign up to be part of its rebirth.<br><br><br>
-      </p>
-      <button id="start-btn">start application</button>
+      <!-- START SCREEN -->
+      <div id="welcome-screen" class="screen">
+        <h1 id="welcome-title">applicant #0000</h1>
+        <p class="subtitle">
+          <br><br>Join the new SODOM. Now more wicked than before.<br> Sign up to be part of its rebirth.<br><br><br>
+        </p>
+        <button id="start-btn">start application</button>
+      </div>
+
+      <!-- QUESTION SCREEN (hidden initially) -->
+      <div id="question-screen" class="screen hidden">
+        <div id="applicant-id" class="applicant-id"></div>
+        <div id="question-container"></div>
+        <button id="next-btn" disabled>next</button>
+      </div>
+
     </div>
-
-    <!-- QUESTION SCREEN (hidden initially) -->
-    <div id="question-screen" class="screen hidden">
-      <div id="applicant-id" class="applicant-id"></div>
-      <div id="question-container"></div>
-      <button id="next-btn" disabled>next</button>
-    </div>
-
   </div>
 
+  <!-- Popups will be appended directly to body -->
   <script src="script.js"></script>
 </body>
 </html>
