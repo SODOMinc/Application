@@ -8,7 +8,7 @@ let wickednessScore = 0;
 let lastPopupType = null;
 let repeatCount = 0;
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbwgK7WbPAHykLjSJac08X1wRpf8dASAvnDPjWdHBqkfqMjz2aLRw_6XcmitlEj0hfj5mw/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbz0juFAT5s8c3GsO-HZD9ctuF7jc7KMZfz63L-h-eWsOqtYdOub8D3UaDY0qxndwWAY8w/exec";
 const appWrapper = document.getElementById("app");
 
 // ------------------------------
