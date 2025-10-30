@@ -12,8 +12,13 @@
     <!-- Outer border instead of container box -->
     <div class="app-border">
 
-      <!-- LIQUID GLASS OVERLAY -->
-      <div class="liquid-glass"></div>
+      <!-- BACKGROUND BOX -->
+      <div class="background-box">
+        <div class="title-bar">
+          <span class="title-text">SODOM.inc</span>
+          <span id="applicant-id">#</span>
+        </div>
+      </div>
 
       <!-- START SCREEN -->
       <div id="welcome-screen" class="screen">
@@ -26,7 +31,6 @@
 
       <!-- QUESTION SCREEN (hidden initially) -->
       <div id="question-screen" class="screen hidden">
-        <div id="applicant-id" class="applicant-id"></div>
         <div id="question-container"></div>
         <button id="next-btn" disabled>next</button>
       </div>

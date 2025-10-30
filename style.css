@@ -3,16 +3,18 @@
 
 :root {
   --bg: #cec9cd;
-  --text: #cdccce;
-  --accent: #a1051f;
-  --border: #a1051f;
+  --text: #070707;
+  --accent: #808080;
+  --border: #808080;
   --option-bg: #070102;
 }
 
 /* ======= PAGE LAYOUT ======= */
 body {
   background-color: var(--bg);
-  background-image: url(bg.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--text);
   font-family: 'Avenir Next', 'Poppins', sans-serif;
   font-weight: 400;
@@ -28,7 +30,7 @@ body {
 /* New wrapper for main content */
 #app {
   width: 100%;
-  height: 100%;
+  height: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,22 +43,55 @@ body {
   filter: blur(2px) brightness(0.6);
 }
 
-/* ======= LIQUID GLASS EFFECT ======= */
-.liquid-glass {
+/* ======= WINDOWS-STYLE BACKGROUND BOX ======= */
+.background-box {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(117, 36, 36, 0.1);
-  backdrop-filter: blur(5px) saturate(100%);
-  -webkit-backdrop-filter: blur(5px) saturate(100%);
-  border-radius: 10px;
+  background: #c0c0c0;             /* classic gray window background */
+  border: 2px solid #808080;       /* dark border for window edge */
+  border-radius: 4px;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040; /* 3D effect edges */
   pointer-events: none;
   z-index: 0;
 }
 
-/* Ensure screens are above the liquid glass */
+/* Title bar as a separate rectangular element */
+.background-box .title-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background-color: #000080;       /* navy title bar */
+  border-bottom: 2px solid #808080;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+
+  /* 3D effect */
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #404040;
+}
+
+/* Applicant ID in title bar */
+.background-box .title-bar #applicant-id {
+  position: static;       /* use flex layout instead */
+  margin-right: 6px;      /* optional spacing from the edge */
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+  font-size: 0.9rem;
+}
+
+/* Ensure screens are above the background box */
 .screen {
   position: relative;
   z-index: 1;
@@ -82,7 +117,7 @@ body {
   background: rgba(0,0,0,0.4);
   backdrop-filter: brightness(0.4);
   -webkit-backdrop-filter: brightness(0.4);
-  z-index: 50; /* ABOVE liquid glass (0) and screen (1), BELOW popups */
+  z-index: 50;
   pointer-events: none;
 }
 
@@ -94,26 +129,35 @@ h3 { font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 1re
 
 /* ======= BUTTONS ======= */
 button {
-  position:absolute;
+  position: absolute;
   bottom: 10%;
-  background-color: var(--accent);
+  background-color: #c0c0c0;          /* classic gray button background */
   color: var(--text);
-  border: 3px solid var(--border);
-  border-radius: 10px;
-  padding: 8px 18px;
+  border: 2px solid #808080;          /* dark border for 3D edge */
+  border-radius: 4px;
+  padding: 6px 16px;
   font-size: 1rem;
   font-family: inherit;
+  font-weight: bold;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  display: inline-block;
-  width: auto;
+
+  /* 3D effect using inset and outset shadows */
+  box-shadow: 
+    inset 1px 1px 0 #ffffff,   /* top-left highlight */
+    inset -1px -1px 0 #404040; /* bottom-right shadow */
+  
+  transition: transform 0.1s ease;
 }
 
+/* Hover: slightly press down */
 button:hover:not(:disabled) {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px rgba(33, 25, 44, 0.15);
+  transform: translateY(1px);
+  box-shadow: 
+    inset -1px -1px 0 #ffffff, /* inverted highlight for pressed look */
+    inset 1px 1px 0 #404040;
 }
 
+/* Disabled button */
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -180,7 +224,56 @@ button:disabled {
   color: var(--text);
 }
 
-/* ======= ANSWER OPTION LABELS ======= */
+/* ======= SINGLE & MULTIPLE CHOICE OPTIONS ======= */
+
+/* Base style for both radios and checkboxes */
+input[type="radio"],
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  background-color: #c0c0c0;       /* classic gray background */
+  border: 2px solid #808080;       /* dark border for 3D edge */
+  cursor: pointer;
+
+  /* 3D inset effect */
+  box-shadow: 
+    inset 1px 1px 0 #ffffff, 
+    inset -1px -1px 0 #404040;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+/* Radio specific */
+input[type="radio"] {
+  border-radius: 50%;
+}
+
+/* Checkbox specific */
+input[type="checkbox"] {
+  border-radius: 4px;
+}
+
+/* Checked state: pressed effect */
+input[type="radio"]:checked,
+input[type="checkbox"]:checked {
+  background-color: #808080;       /* independent accent gray */
+  box-shadow: 
+    inset -1px -1px 0 #ffffff,    /* inverted for pressed effect */
+    inset 1px 1px 0 #404040;
+  transform: scale(1.05);
+}
+
+/* Optional hover effect */
+input[type="radio"]:hover,
+input[type="checkbox"]:hover {
+  transform: translateY(1px);
+  box-shadow: 
+    inset -1px -1px 0 #ffffff, 
+    inset 1px 1px 0 #404040;
+}
+
+/* Labels aligned with the inputs */
 .option-label {
   display: flex;
   align-items: center;
@@ -191,24 +284,6 @@ button:disabled {
   user-select: none;
   width: 100%;
 }
-
-/* ======= INPUT STYLES ======= */
-input[type="radio"], input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 22px;
-  height: 22px;
-  border: 3px solid var(--border);
-  background-color: var(--option-bg);
-  cursor: pointer;
-  transition: transform 0.1s ease;
-}
-
-input[type="radio"] { border-radius: 50%; }
-input[type="radio"]:checked { background-color: var(--accent); transform: scale(1.05); }
-
-input[type="checkbox"] { border-radius: 6px; }
-input[type="checkbox"]:checked { background-color: var(--accent); transform: scale(1.05); }
 
 /* ======= FINAL MESSAGE ======= */
 .final-message {
@@ -225,6 +300,18 @@ input[type="checkbox"]:checked { background-color: var(--accent); transform: sca
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Popup entrance animation */
+@keyframes popupEntrance {
+  from {
+    transform: translateY(-20px) scale(0.95) rotate(-1deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
 /* ======= RESPONSIVE ======= */
 @media (max-width: 600px) {
   h1 { font-size: 1.5rem; }
@@ -235,9 +322,10 @@ input[type="checkbox"]:checked { background-color: var(--accent); transform: sca
 /* ======= POPUP / ANNOYING HUD ======= */
 .popup-overlay.annoying {
   position: fixed;
-  width: 300px;
-  height: 200px;
-  background: rgba(0,0,0,0.92);
+  width: 400px;
+  height: auto;               /* <-- auto height */
+  max-height: 90vh;           /* optional: prevent it from being taller than viewport */
+  background: rgba(84, 84, 84);
   border: 3px solid var(--border);
   padding: 0.6rem;
   display: flex;
@@ -245,59 +333,62 @@ input[type="checkbox"]:checked { background-color: var(--accent); transform: sca
   align-items: center;
   z-index: 999999 !important;
   box-sizing: border-box;
-  transition: transform 0.08s ease, opacity 0.12s ease;
-  border-radius: 8px;
+  border-radius: 4px;
+  animation: popupEntrance 0.4s ease forwards;
+  overflow: hidden;           /* prevent content spilling outside overlay */
 }
 
-.popup-overlay.annoying:hover {
-  transform: scale(1.02);
-}
-
+/* POPUP BOX LAYOUT */
 .popup-box.small {
-  width: 100%;
-  height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: column;   /* stack children vertically */
+  justify-content: flex-start;
   align-items: center;
-  gap: 8px;
+  gap: 20px;               /* vertical spacing between children */
+  width: 100%;
+  height: auto;
   text-align: center;
-  font-size: 1rem;
-  color: var(--text);
+  padding: 16px;
+  box-sizing: border-box;
+  background: rgba(84, 84, 84);
+  border-radius: 4px;
 }
 
-.popup-box.small .popup-question {
-  font-size: 0.95rem;
-  line-height: 1.1;
+/* Ensure all children inside the popup respect the gap */
+.popup-box.small > * {
+  margin: 0;               /* remove default margins */
 }
 
-/* Red Alert style */
-.popup-red {
-  background: rgba(200, 20, 20, 0.95);
-  color: white;
-  border: 3px solid yellow;
+/* Buttons inside popups should flow naturally */
+.popup-box.small button {
+  position: static;        /* remove absolute positioning */
 }
 
-/* Neon style */
-.popup-neon {
-  background: rgba(0,0,0,0.85);
-  color: #0ff;
-  border: 3px solid #0ff;
-  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+/* Scrollable content inside popup */
+.scroll-box {
+  width: 110%;
+  max-height: 140px;
+  overflow-y: auto;
+  border: 1px solid #333;
+  padding: 12px;
+  box-sizing: border-box;
+  flex-shrink: 0;   /* prevent shrinking inside flex column */
 }
 
-/* Tilted popups */
-.popup-tilt {
-  transform: rotate(var(--angle, 5deg));
+/* Button container to always sit at the bottom */
+.popup-button-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 12px;
+  flex-shrink: 0; /* prevent shrinking */
 }
 
-/* Mini popups */
-.popup-mini {
-  width: 120px;
-  height: 100px;
-  font-size: 0.85rem;
+.popup-box p,
+.popup-box .popup-question {
+  margin: 0;           /* remove default paragraph spacing */
 }
 
+/* ======= MINI BUTTON ======= */
 .agree-mini {
   background: var(--accent);
   color: var(--text);
@@ -307,6 +398,28 @@ input[type="checkbox"]:checked { background-color: var(--accent); transform: sca
   cursor: pointer;
 }
 
+.agree-mini:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ======= PROGRESS BAR (countdown) ======= */
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #222;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.progress-inner {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, var(--accent), orange, yellow);
+  transition: width linear;
+}
+
 @media (max-width: 480px) {
   .popup-overlay.annoying {
     width: 85vw;
@@ -314,12 +427,251 @@ input[type="checkbox"]:checked { background-color: var(--accent); transform: sca
   }
 }
 
-.popup-timer-bar {
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  height: 6px;
-  width: calc(100% - 16px); /* fits inside popup box with padding */
-  background-color: rgb(91, 91, 91);
-  border-radius: 3px;
+/* ======= POPUP / ANNOYING WINDOW (Minesweeper style) ======= */
+.popup-overlay.annoying {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999999;
+  width: 400px;
+  max-width: 90vw;
+  pointer-events: auto;
+
+  /* Classic Windows gray window */
+  background: #c0c0c0;
+  border: 3px solid #808080;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 #404040, -2px -2px 0 #fff;
+
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  animation: popupEntrance 0.4s ease forwards;
+}
+
+/* Title bar (blue like Minesweeper) */
+.popup-overlay.annoying .title-bar {
+  width: 100%;
+  height: 30px;
+  background-color: #000080;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+  box-sizing: border-box;
+  text-shadow: 1px 1px #000;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #404040;
+}
+
+/* Popup inner box */
+.popup-box.small {
+  width: 100%;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background-color: #c0c0c0;
+  border-top: 2px solid #808080;
+  color: #070707;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
+}
+
+/* Scrollable text area */
+.scroll-box {
+  width: 100%;
+  max-height: 140px;
+  overflow-y: auto;
+  border: 2px solid #808080;
+  padding: 8px;
+  box-sizing: border-box;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
+  background-color: #dcdcdc;
+  color: #000;
+}
+
+/* Buttons */
+.popup-box.small button {
+  position: static;
+  background-color: #c0c0c0;
+  color: #070707;
+  border: 2px solid #808080;
+  border-radius: 2px;
+  padding: 4px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
+  transition: transform 0.1s ease;
+}
+
+.popup-box.small button:hover {
+  transform: translateY(1px);
+  box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #404040;
+}
+
+/* Buttons container */
+.popup-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* ======= INTERMISSION POPUP AS ERROR WINDOW ======= */
+.popup-overlay.intermission {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999999;
+  width: 400px;
+  max-width: 90vw;
+  pointer-events: auto;
+  background: #c0c0c0;
+  border: 3px solid #808080;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 #404040, -2px -2px 0 #fff;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* stack children vertically */
+  align-items: stretch;   /* full width */
+}
+
+/* Title bar for error window */
+.popup-overlay.intermission .title-bar {
+  width: 100%;
+  height: 30px;
+  background-color: #ead30a;       /* red for error */
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+  box-sizing: border-box;
+  text-shadow: 1px 1px #000;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #404040;
+}
+
+/* Popup content inside error window */
+.popup-box.intermission {
+  width: 100%;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;      /* stack icon above text */
+  align-items: center;         /* center horizontally */
+  gap: 12px;
+  background-color: #c0c0c0;
+  border-top: 2px solid #808080;
+  color: #070707;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040; /* inset 3D */
+}
+
+/* Error icon on top */
+.popup-box.intermission .icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background-size: contain;
+  background-position: center;
+  margin-bottom: 8px;
+}
+
+/* Text label style (like Windows static text) */
+.popup-box.intermission .text {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers input/button horizontally */
+  gap: 16px; /* spacing between lines */
+  text-align: center; /* optional for text */
+}
+
+/* Button container: bottom center */
+.popup-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;   /* center buttons */
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.popup-box.intermission .text input#intermission-input {
+  width: 45%;
+  max-width: 250px;
+}
+
+.popup-box.intermission .text button#intermission-next {
+  position: static;
+  margin-top: 20px; /* space only between input and button */
+}
+
+/* Buttons inside popup */
+.popup-box.intermission button {
+  position: static;   /* ensures button stays below input, not absolute */
+  margin-top: 16px; 
+  background-color: #c0c0c0;
+  color: #070707;
+  border: 2px solid #808080;
+  border-radius: 2px;
+  padding: 4px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
+}
+
+.popup-box.intermission button:hover {
+  transform: translateY(1px);
+  box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #404040;
+}
+
+/* ======= FINAL SCREEN ======= */
+.final-screen {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.final-role {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 #fff, 2px 2px 0 #808080;
+  margin: 0;
+}
+
+.final-flavor {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #111;
+  max-width: 500px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.final-ending {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000080;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+  text-shadow: 1px 1px 0 #fff;
 }
