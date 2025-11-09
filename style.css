@@ -30,7 +30,7 @@ body {
 /* New wrapper for main content */
 #app {
   width: 100%;
-  height: 60%;
+  height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,7 +130,7 @@ h3 { font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 1re
 /* ======= BUTTONS ======= */
 button {
   position: absolute;
-  bottom: 10%;
+  bottom: 2%;
   background-color: #c0c0c0;          /* classic gray button background */
   color: var(--text);
   border: 2px solid #808080;          /* dark border for 3D edge */
@@ -406,9 +406,11 @@ input[type="checkbox"]:hover {
 /* ======= PROGRESS BAR (countdown) ======= */
 .progress-bar {
   width: 100%;
-  height: 6px;
-  background: #222;
-  border-radius: 3px;
+  height: 12px;                   /* slightly thicker for visibility */
+  background-color: #c0c0c0;      /* classic window gray */
+  border: 2px solid #808080;      /* dark border for 3D effect */
+  border-radius: 2px;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040; /* 3D inset edges */
   overflow: hidden;
   margin-top: 6px;
 }
@@ -416,7 +418,8 @@ input[type="checkbox"]:hover {
 .progress-inner {
   height: 100%;
   width: 100%;
-  background: linear-gradient(to right, var(--accent), orange, yellow);
+  background: linear-gradient(to right, #000080, #0000cd); /* navy gradient like title bar */
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #404040; /* 3D effect inside */
   transition: width linear;
 }
 

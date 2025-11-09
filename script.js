@@ -253,9 +253,9 @@ function spawnPopup(popupData, parent = null) {
     if (type === 1) {
       html += `
         <div class="progress-bar" style="width: 100%; height: 6px; background: #222; border-radius: 4px; overflow: hidden; margin-top: 10px;">
-          <div class="progress-inner" style="height: 100%; width: 100%; background: var(--accent); transition: width linear;"></div>
+          <div class="progress-inner"></div>
         </div>
-        <button class="agree-mini" disabled>I agree</button>`;
+        <button class="agree-mini">I agree</button>`;
     } else {
       html += `<button class="agree-mini">I agree</button>`;
     }
@@ -264,7 +264,7 @@ function spawnPopup(popupData, parent = null) {
 
   // Type 4: scroll box with button below
   else if (type === 4) {
-    popup.classList.add("type-4"); // for CSS targeting
+    popup.classList.add("type-4");
     html += `
       <div class="popup-box small type-4" style="display:flex; flex-direction:column; gap:8px;">
         <div class="scroll-box">
@@ -279,16 +279,17 @@ function spawnPopup(popupData, parent = null) {
   popup.innerHTML = html;
   document.body.appendChild(popup);
 
-  // Get the actual popup size after DOM insertion
   const popupBox = popup.querySelector(".popup-box");
+
+  // Get popup size
   const pw = popupBox.offsetWidth;
   const ph = popupBox.offsetHeight;
 
-  // Make sure popup never goes off screen, even on small devices
+  // Random placement
   let left = Math.random() * (window.innerWidth - pw);
   let top = Math.random() * (window.innerHeight - ph);
 
-  // Clamp position so it's always fully visible
+  // Clamp so popup stays inside viewport
   left = Math.max(10, Math.min(left, window.innerWidth - pw - 10));
   top = Math.max(10, Math.min(top, window.innerHeight - ph - 10));
 
@@ -304,79 +305,123 @@ function spawnPopup(popupData, parent = null) {
     popup.style.maxHeight = "90vh";
     popup.style.overflow = "auto";
   }
+  
+  const btn = popup.querySelector(".agree-mini");
 
   // Block main UI while popup is active
   appWrapper.classList.add("popups-active");
   document.getElementById("question-screen").style.pointerEvents = "none";
 
-  const btn = popup.querySelector(".agree-mini");
-
-  // Type 1 progress timer
+  // ---------------- TYPE-1 PROGRESS TIMER WITH EARLY-CLICK HANDLING ----------------
   if (type === 1) {
     const bar = popup.querySelector(".progress-inner");
-    const progressContainer = popup.querySelector(".progress-bar"); // container div
-    let time = 2000 + Math.random() * 2000;
+    const progressContainer = popup.querySelector(".progress-bar");
+    let baseTime = 2000 + Math.random() * 2000;
+    let remainingTime = baseTime;
+    let speedMultiplier = 1;
     let start = performance.now();
+    let finished = false;
+
+    btn.disabled = false; // allow early clicks
 
     function animate(t) {
-      const elapsed = t - start;
-      const progress = Math.max(0, 1 - elapsed / time);
+      const elapsed = (t - start) / speedMultiplier;
+      const progress = Math.max(0, 1 - elapsed / remainingTime);
       bar.style.width = progress * 100 + "%";
 
-      if (progress > 0) {
+      if (!finished && progress > 0) {
         requestAnimationFrame(animate);
-      } else {
-        // enable the button and remove the progress bar
-        btn.disabled = false;
+      } else if (!finished) {
+        finished = true;
         if (progressContainer) progressContainer.remove();
       }
     }
 
     requestAnimationFrame(animate);
-  }
 
-  // Type 4 scroll-to-enable
-  if (type === 4) {
-    const scrollBox = popup.querySelector(".scroll-box");
-    scrollBox.addEventListener("scroll", () => {
-      const nearBottom = scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight - 10;
-      if (nearBottom) btn.disabled = false;
+    btn.addEventListener("click", (e) => {
+      if (!finished) {
+        // Early click: flash red and slow down timer
+        bar.style.background = "red";
+        setTimeout(() => {
+          bar.style.background = "linear-gradient(to right, var(--accent), orange, yellow)";
+        }, 500);
+
+        const now = performance.now();
+        const elapsed = (now - start) / speedMultiplier;
+        const timeLeft = remainingTime - elapsed;
+        remainingTime = elapsed + timeLeft * (4/3);
+        speedMultiplier *= 4/3;
+
+        e.stopPropagation(); // prevent other handlers
+        return;
+      }
+
+      // Timer finished → close popup
+      popup.remove();
+      appWrapper.classList.remove("popups-active");
+      document.getElementById("question-screen").style.pointerEvents = "auto";
+      if (popupData.text) answers[popupData.text] = "I agree";
     });
   }
 
-  // Type 2 multi-step
-  let step = 0;
-  const stepTexts = ["I agree", "I really agree", "I totally agree"];
+  // ---------------- TYPE-2 MULTI-STEP ----------------
+  if (type === 2) {
+    let step = 0;
+    const stepTexts = ["I agree", "I really agree", "I totally agree"];
+    btn.addEventListener("click", () => {
+      if (step < 2) {
+        step++;
+        btn.textContent = stepTexts[step];
+        return;
+      }
+      popup.remove();
+      if (document.querySelectorAll(".popup-overlay.annoying").length === 0) {
+        appWrapper.classList.remove("popups-active");
+        document.getElementById("question-screen").style.pointerEvents = "auto";
+      }
+      if (popupData.text) answers[popupData.text] = "I agree";
+    });
+  }
 
-  btn.addEventListener("click", () => {
-    if (type === 2 && step < 2) {
-      step++;
-      btn.textContent = stepTexts[step];
-      return;
-    }
-
-    popup.remove();
-
-    // Restore main UI if no popups left
-    if (document.querySelectorAll(".popup-overlay.annoying").length === 0) {
-      appWrapper.classList.remove("popups-active");
-      document.getElementById("question-screen").style.pointerEvents = "auto";
-    }
-
-    // Type 3 spawns children only if original
-    if (type === 3 && !parent) {
-      const spawnCount = 1 + Math.floor(Math.random() * 2); // 1 or 2 children
+  // ---------------- TYPE-3 SPAWN CHILDREN ----------------
+  if (type === 3 && !parent) {
+    btn.addEventListener("click", () => {
+      popup.remove();
+      if (document.querySelectorAll(".popup-overlay.annoying").length === 0) {
+        appWrapper.classList.remove("popups-active");
+        document.getElementById("question-screen").style.pointerEvents = "auto";
+      }
+      const spawnCount = 1 + Math.floor(Math.random() * 2);
       for (let i = 0; i < spawnCount; i++) {
-        const delay = 150 + Math.random() * 200; // 150ms to 350ms stagger
+        const delay = 150 + Math.random() * 200;
         setTimeout(() => {
           const childData = popups[Math.floor(Math.random() * popups.length)];
           spawnPopup(childData, popupData);
         }, i * delay);
       }
-    }
+      if (popupData.text) answers[popupData.text] = "I agree";
+    });
+  }
 
-    if (popupData.text) answers[popupData.text] = "I agree";
-  });
+  // ---------------- TYPE-4 SCROLL ----------------
+  if (type === 4) {
+    const scrollBox = popup.querySelector(".scroll-box");
+    btn.disabled = true;
+    scrollBox.addEventListener("scroll", () => {
+      const nearBottom = scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight - 10;
+      if (nearBottom) btn.disabled = false;
+    });
+
+    btn.addEventListener("click", () => {
+      popup.remove();
+      if (document.querySelectorAll(".popup-overlay.annoying").length === 0) {
+        appWrapper.classList.remove("popups-active");
+        document.getElementById("question-screen").style.pointerEvents = "auto";
+      }
+      if (popupData.text) answers[popupData.text] = "I agree";
+    });
+  }
 }
 
 // ------------------------------
