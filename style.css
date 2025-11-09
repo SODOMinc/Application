@@ -675,3 +675,16 @@ input[type="checkbox"]:hover {
   margin-top: 1rem;
   text-shadow: 1px 1px 0 #fff;
 }
+
+/* ======= RESPONSIVE TEXT ADJUSTMENT ======= */
+@media (max-width: 600px) {
+  .question-text {
+    font-size: clamp(1rem, 5vw, 1.4rem); /* auto scales on small screens */
+    text-align: center;
+    margin-top: -80px;
+  }
+
+  .option-label {
+    font-size: clamp(0.85rem, 4vw, 1rem); /* responsive answer text */
+  }
+}

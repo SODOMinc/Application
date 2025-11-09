@@ -177,19 +177,26 @@ function showQuestion() {
 }
 
 function fitQuestionText() {
-  const el = document.querySelector(".question-text");
-  if (!el) return;
+  const questionEl = document.querySelector(".question-text");
+  const optionEls = document.querySelectorAll(".option-label");
+
+  if (!questionEl) return;
 
   const maxLines = 2;
-  const lineHeight = parseFloat(window.getComputedStyle(el).lineHeight);
+  const lineHeight = parseFloat(window.getComputedStyle(questionEl).lineHeight);
   const maxHeight = maxLines * lineHeight;
-  let fontSize = parseFloat(window.getComputedStyle(el).fontSize);
+  let fontSize = parseFloat(window.getComputedStyle(questionEl).fontSize);
 
-  // shrink font size until it fits within two lines or hits a lower limit
-  while (el.scrollHeight > maxHeight && fontSize > 14) {
+  // shrink question text until it fits within two lines or hits a lower limit
+  while (questionEl.scrollHeight > maxHeight && fontSize > 14) {
     fontSize -= 1;
-    el.style.fontSize = fontSize + "px";
+    questionEl.style.fontSize = fontSize + "px";
   }
+
+  // also slightly scale down option text relative to question size
+  optionEls.forEach(el => {
+    el.style.fontSize = Math.max(12, fontSize * 0.6) + "px";
+  });
 }
 
 // ------------------------------
