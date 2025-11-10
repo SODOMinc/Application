@@ -314,15 +314,15 @@ function spawnPopup(popupData, parent = null) {
 
   // ---------------- TYPE-1 PROGRESS TIMER WITH EARLY-CLICK HANDLING ----------------
   if (type === 1) {
-    const bar = popup.querySelector(".progress-inner");
-    const progressContainer = popup.querySelector(".progress-bar");
-    let baseTime = 2000 + Math.random() * 2000;
-    let remainingTime = baseTime;
-    let speedMultiplier = 1;
-    let start = performance.now();
     let finished = false;
+    let canClose = false;
 
-    btn.disabled = false; // allow early clicks
+    // create popup + progress bar as before
+    const progressContainer = popup.querySelector(".progress-bar");
+    const bar = popup.querySelector(".progress-inner");
+    const speedMultiplier = 1; // or your existing value
+    let start = performance.now();
+    let remainingTime = 3000; // or your current setting
 
     function animate(t) {
       const elapsed = (t - start) / speedMultiplier;
@@ -333,6 +333,7 @@ function spawnPopup(popupData, parent = null) {
         requestAnimationFrame(animate);
       } else if (!finished) {
         finished = true;
+        canClose = true; // ✅ mark popup as closable now
         if (progressContainer) progressContainer.remove();
       }
     }
@@ -340,24 +341,19 @@ function spawnPopup(popupData, parent = null) {
     requestAnimationFrame(animate);
 
     btn.addEventListener("click", (e) => {
-      if (!finished) {
-        // Early click: flash red and slow down timer
+      if (!canClose) {
+        // Early click → flash red + slow timer a bit
         bar.style.background = "red";
         setTimeout(() => {
-          bar.style.background = "linear-gradient(to right, var(--accent), orange, yellow)";
+          bar.style.background = "linear-gradient(to right, #000080, #0000cd)";
         }, 500);
 
-        const now = performance.now();
-        const elapsed = (now - start) / speedMultiplier;
-        const timeLeft = remainingTime - elapsed;
-        remainingTime = elapsed + timeLeft * (4/3);
-        speedMultiplier *= 4/3;
-
-        e.stopPropagation(); // prevent other handlers
+        remainingTime *= 1.3; // slightly extend timer
+        e.stopPropagation();
         return;
       }
 
-      // Timer finished → close popup
+      // ✅ Normal close when finished
       popup.remove();
       appWrapper.classList.remove("popups-active");
       document.getElementById("question-screen").style.pointerEvents = "auto";
