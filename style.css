@@ -29,13 +29,14 @@ body {
 
 /* New wrapper for main content */
 #app {
-  width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
   align-items: center;
-  position: relative;
-  transition: filter 0.25s ease;
+  min-height: 100vh; 
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 /* When popups are active, blur only #app */
@@ -45,17 +46,19 @@ body {
 
 /* ======= WINDOWS-STYLE BACKGROUND BOX ======= */
 .background-box {
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0 auto;
   width: 100%;
-  height: 100%;
+  max-width: 600px;
+  min-height: 700px;
+  padding: 3rem 1.5rem 2rem; /* increase top padding to account for title-bar */
   background: #c0c0c0;
   border: 2px solid #808080;
   border-radius: 4px;
   box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
-  pointer-events: none;
-  z-index: 0;
+  box-sizing: border-box;
 }
 
 .background-box .title-bar {
@@ -87,21 +90,26 @@ body {
 }
 
 .screen {
-  position: relative;
-  z-index: 1;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* let content dictate height */
+  align-items: center;
 }
 
 /* ======= OUTER BORDER FRAME ======= */
 .app-border {
-  position: relative;
   width: 85%;
-  height: 90%;
-  border-radius: 10px;
+  /* height: 90%; */      /* remove this */
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
   padding: 2rem;
+  flex-direction: column; /* ensure stacking vertically */
 }
 
 /* Dark overlay during popups */
@@ -123,8 +131,7 @@ h3 { font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 1re
 
 /* ======= BUTTONS ======= */
 button {
-  position: absolute;
-  bottom: 2%;
+  position: relative;
   background-color: #c0c0c0;
   color: var(--text);
   border: 2px solid #808080;
@@ -136,6 +143,22 @@ button {
   cursor: pointer;
   box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #404040;
   transition: transform 0.1s ease;
+  margin-top: 0;
+}
+
+/* Next button at the bottom of question screen */
+#next-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  display: none;
+}
+
+/* Popup “I agree” buttons */
+.popup-box.small button.agree-mini {
+  margin-top: 12px; /* smaller margin for popup buttons */
 }
 
 button:hover:not(:disabled) {
@@ -162,6 +185,7 @@ button:disabled {
   align-items: center;
   height: 100%;
   position: relative;
+  margin-top: 50px;
 }
 
 .hidden { display: none !important; }
@@ -178,7 +202,7 @@ button:disabled {
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
-  margin-top: -150px;
+  margin-top: 0;
 }
 
 .options-wrapper {
@@ -538,8 +562,8 @@ input[type="checkbox"]:hover {
 
   .question-text {
     font-size: clamp(1rem, 5vw, 1.4rem);
-    text-align: center;
-    margin-top: -80px;
+    text-align: left;
+    margin-top: 0;
   }
 
   .option-label {

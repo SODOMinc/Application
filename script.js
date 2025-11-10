@@ -96,6 +96,7 @@ function startSurvey() {
   document.getElementById("welcome-screen").classList.add("hidden");
   document.getElementById("question-screen").classList.remove("hidden");
   document.getElementById("applicant-id").textContent = userId;
+  document.getElementById("next-btn").style.display = "block";
   showQuestion();
 }
 

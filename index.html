@@ -11,30 +11,29 @@
   <div id="app">
     <!-- Outer border instead of container box -->
     <div class="app-border">
-
-      <!-- BACKGROUND BOX -->
       <div class="background-box">
         <div class="title-bar">
           <span class="title-text">SODOM.inc</span>
           <span id="applicant-id">#</span>
         </div>
-      </div>
 
-      <!-- START SCREEN -->
-      <div id="welcome-screen" class="screen">
-        <h1 id="welcome-title">applicant #0000</h1>
-        <p class="subtitle">
-          <br><br>Join the new SODOM. Now more wicked than before.<br> Sign up to be part of its rebirth.<br><br><br>
-        </p>
-        <button id="start-btn">start application</button>
-      </div>
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen">
+          <h1 id="welcome-title">applicant #0000</h1>
+          <p class="subtitle">
+            <br><br>Join the new SODOM. Now more wicked than before.<br> Sign up to be part of its rebirth.<br><br><br>
+          </p>
+          <button id="start-btn">start application</button>
+        </div>
 
-      <!-- QUESTION SCREEN (hidden initially) -->
-      <div id="question-screen" class="screen hidden">
-        <div id="question-container"></div>
+        <!-- Question Screen -->
+        <div id="question-screen" class="screen hidden">
+          <div id="question-container"></div>
+        </div>
+
+        <!-- Next button is now outside of screen, positioned at bottom -->
         <button id="next-btn" disabled>next</button>
       </div>
-
     </div>
   </div>
 
