@@ -91,7 +91,7 @@ body {
 
 .screen {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   box-sizing: border-box;
   text-align: center;
   display: flex;
@@ -176,7 +176,7 @@ button:disabled {
 /* ======= QUESTION AREA ======= */
 .screen {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   box-sizing: border-box;
   text-align: center;
   display: flex;
@@ -555,7 +555,7 @@ input[type="checkbox"]:hover {
 }
 
 /* ======= RESPONSIVE ======= */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   h1 { font-size: 1.5rem; }
   h3 { font-size: 1.2rem; }
   .subtitle { font-size: 0.9rem; }
@@ -575,4 +575,5 @@ input[type="checkbox"]:hover {
     width: 85vw;
     height: auto;
   }
+
 }
