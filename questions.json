@@ -10,7 +10,7 @@
     "id": 2,
     "type": "single",
     "question": "What is your gender?",
-    "options": ["Male", "Pillar of salt", "Deviant"]
+    "options": ["Default", "Pillar of salt", "Deviant"]
   },
 
   {
