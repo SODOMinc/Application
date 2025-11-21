@@ -55,6 +55,7 @@ body {
   margin: 0 auto;
   width: 100%;
   max-width: var(--box-max-width);
+  min-width: 95vw; 
   min-height: 700px;
   padding: 3rem 1.5rem 2rem; /* increase top padding to account for title-bar */
   background: #c0c0c0;
