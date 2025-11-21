@@ -535,6 +535,8 @@ input[type="checkbox"]:hover {
   width: 50vw;
   min-width: 30vw;
   max-width: 60vw;
+  min-height: 10vh;
+  max-height: 50vh;
   padding: 0;
   animation: popupEntrance 0.35s ease-out;
 }
