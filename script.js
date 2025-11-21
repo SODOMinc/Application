@@ -473,8 +473,8 @@ function showIntermissionPopup() {
     <div class="popup-box intermission">
       <div class="icon"></div>
       <div class="text">
-        <p>Show your screen to the supervisor</p>
-        <input id="intermission-input" type="text" placeholder="...">
+        <p>Please contribute a meaningful song to SODOM</p>
+        <input id="intermission-input" type="text" placeholder="song name...">
         <button id="intermission-next" class="agree-mini" disabled>next</button>
       </div>
     </div>
@@ -557,31 +557,31 @@ function assignRole(score, answersObj) {
   };
 
   let role = "CIVIC TENDER";
-  if (score >= 10 && score < 20) role = "PLEASURE CURATOR";
-  if (score >= 20 && score < 30) role = "VICE MERCHANT";
-  if (score >= 30 && score < 45) role = "WARDEN OF CORRUPTION";
-  if (score >= 45 && score < 60) role = "FLAMEWRIGHT";
-  if (score >= 60 && score < 80) role = "HIGH HEDONIST";
-  if (score >= 80) role = "CONSUL OF SINS";
+  if (score >= 20 && score < 30) role = "PLEASURE CURATOR";
+  if (score >= 30 && score < 40) role = "DEALER OF VICES";
+  if (score >= 40 && score < 60) role = "GUARDIAN OF CORRUPTION";
+  if (score >= 60 && score < 80) role = "HEALER";
+  if (score >= 80 && score < 100) role = "HIGH HEDONIST";
+  if (score >= 100) role = "CONSUL OF SINS";
 
-  if (flags.admittedKill && score >= 30) role = "FLAMEWRIGHT";
-  if (flags.admittedSteal && score >= 20) role = "VICE MERCHANT";
-  if (flags.highestLoyalty && score >= 40) role = "CONSUL OF SINS";
-  if (flags.surrenderedBody && score >= 30) role = "HIGH HEDONIST";
-  if (flags.lovesDestruction && score >= 25) role = "WARDEN OF CORRUPTION";
+  if (flags.admittedKill && score >= 50) role = "HEALER";
+  if (flags.admittedSteal && score >= 30) role = "DEALER OF VICES";
+  if (flags.highestLoyalty && score >= 70) role = "CONSUL OF SINS";
+  if (flags.surrenderedBody && score >= 60) role = "HIGH HEDONIST";
+  if (flags.lovesDestruction && score >= 40) role = "GUARDIAN OF CORRUPTION";
 
   return role;
 }
 
 function getFlavorText(role) {
   const t = {
-    "CIVIC TENDER": `You keep the fountains clean and the licenses current.`,
-    "PLEASURE CURATOR": `Your hands sculpt the city’s indulgences.`,
-    "VICE MERCHANT": `You are a dealer in every delight outlawed by gentler worlds.`,
-    "WARDEN OF CORRUPTION": `You operate in alleys where light fears to tread.`,
-    "FLAMEWRIGHT": `You keep the fires lit.`,
-    "HIGH HEDONIST": `Crowds chant your name.`,
-    "CONSUL OF SINS": `You whisper commands and the city rearranges itself.`
+    "CIVIC TENDER": `You will keep the fountains clean and the licenses current.`,
+    "PLEASURE CURATOR": `Your hands will sculpt the city’s indulgences.`,
+    "DEALER OF VICES": `Here you can deal in every delight outlawed by gentler worlds.`,
+    "GUARDIAN OF CORRUPTION": `You will operate in alleys where light fears to tread.`,
+    "HEALER": `You keep their fires lit.`,
+    "HIGH HEDONIST": `Crowds chant your name, your presence fuels the city.`,
+    "CONSUL OF SINS": `You whisper commands and the city will rearrange itself.`
   };
   return t[role];
 }

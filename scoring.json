@@ -1,10 +1,4 @@
 {
-  "1": {
-    "Yes": 2,
-    "Of course": 3,
-    "I swear": 4,
-    "Always": 5
-  },
   "2": {
     "Male": 0, 
     "Pillar of salt": 3, 
@@ -37,19 +31,62 @@
     "I'm not limited by concern for others": 5
   },
   "7": {
-    "Yes": 5,
-    "No": 0
+    "Depression": 2,
+    "Concentration": 2,
+    "Stress": 2,
+    "Insomnia": 5,
+    "Paranoia": 5,
+    "Because it's fun": 10,
+    "No, I'm built strong and sturdy": 0
   },
   "8": {
     "Yes": 5,
     "No": 0
   },
   "9": {
-    "Yes": 4,
+    "Yes": 5,
     "No": 0
   },
   "10": {
-    "Yes": 3,
+    "Yes": 4,
+    "No": 0
+  },
+  "11": {
+    "Yes, monotheist": 0, 
+    "Yes, polytheist": 1, 
+    "I only serve myself": 5
+  },
+  "12":{
+    "Yes, economical":2, 
+    "Yes, socio-political":3, 
+    "Yes, monarchist":0, 
+    "No, I see all sides":0
+  },
+  "13": {
+    "Yes": 5,
+    "No": 0
+  },
+  "14": {
+    "Yes": 5,
+    "No": 0
+  },
+  "15": {
+    "Yes": 0,
+    "No": 4
+  },
+  "16": {
+    "Queer":5, 
+    "P.O.C":5, 
+    "Female":5, 
+    "Hedonists":5, 
+    "I like to conform":0
+  },
+  "17": {
+    "Yes": 5,
+    "No": 0
+  },
+  "18": {
+    "Yes": 4,
     "No": 0
   }
 }

@@ -2,8 +2,8 @@
    {
     "id": 1,
     "type": "single",
-    "question": "Swear your undying loyalty to SODOM",
-    "options": ["Yes", "Of course", "I swear", "Always"]
+    "question": "What is your current civil status?",
+    "options": ["Returning citizen", "Migrant", "Expat", "Refugee", "Diplomat"]
   },
 
   {
@@ -43,64 +43,85 @@
 
   {
     "id": 7,
+    "type": "multiple",
+    "question": "Do you take medication for any of the following?",
+    "options": ["Depression", "Concentration", "Stress", "Insomnia", "Paranoia", "Because it's fun", "No, I'm built strong and sturdy"]
+  },
+
+  {
+    "id": 8,
     "type": "single",
     "question": "Have you ever killed?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 8,
+    "id": 9,
     "type": "single",
     "question": "Have you ever stolen?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 9,
-    "type": "single",
-    "question": "Have you fornicated while unwed?",
-    "options": ["Yes", "No"]
-  },
-
-  {
     "id": 10,
     "type": "single",
-    "question": "Would you prefer to save yourself over someone else's life?",
+    "question": "Have you had sexual intercourse outside of marriage?",
     "options": ["Yes", "No"]
   },
 
   {
     "id": 11,
-    "type": "single",
-    "question": "Have you ever been involved with any religious or political movement?",
-    "options": ["Yes", "No"]
+    "type": "multiple",
+    "question": "Have you ever been involved with any religious movement?",
+    "options": ["Yes, monotheist", "Yes, polytheist", "I only serve myself"]
+  },
+
+   {
+    "id": 12,
+    "type": "multiple",
+    "question": "Have you ever been involved with any political movement?",
+    "options": ["Yes, economical", "Yes, socio-political", "Yes, monarchist", "No, I see all sides"]
   },
 
   {
-    "id": 12,
+    "id": 13,
     "type": "single",
     "question": "Are you addicted to drugs?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 13,
+    "id": 14,
     "type": "single",
     "question": "Are you addicted to god?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 14,
+    "id": 15,
     "type": "single",
     "question": "Are you addicted to power?",
     "options": ["Yes", "No"]
   },
 
   {
-    "id": 15,
+    "id": 16,
     "type": "multiple",
     "question": "Are you part of any of the following communities?",
     "options": ["Queer", "P.O.C", "Female", "Hedonists", "I like to conform"]
+  },
+
+  {
+    "id": 17,
+    "type": "single",
+    "question": "Would you prefer to save yourself over someone else's life?",
+    "options": ["Yes", "No"]
+  },
+
+  {
+    "id": 18,
+    "type": "single",
+    "question": "Do you swear undying loyalty to SODOM?",
+    "options": ["Always", "No"]
   }
 ]

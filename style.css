@@ -7,6 +7,9 @@
   --accent: #808080;
   --border: #808080;
   --option-bg: #070102;
+
+  /* Adjustable background-box width */
+  --box-max-width: 600px;
 }
 
 /* ======= PAGE LAYOUT ======= */
@@ -51,7 +54,7 @@ body {
   position: relative;
   margin: 0 auto;
   width: 100%;
-  max-width: 600px;
+  max-width: var(--box-max-width);
   min-height: 700px;
   padding: 3rem 1.5rem 2rem; /* increase top padding to account for title-bar */
   background: #c0c0c0;
@@ -91,7 +94,7 @@ body {
 
 .screen {
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
   box-sizing: border-box;
   text-align: center;
   display: flex;
@@ -176,7 +179,7 @@ button:disabled {
 /* ======= QUESTION AREA ======= */
 .screen {
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
   box-sizing: border-box;
   text-align: center;
   display: flex;
@@ -555,7 +558,7 @@ input[type="checkbox"]:hover {
 }
 
 /* ======= RESPONSIVE ======= */
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   h1 { font-size: 1.5rem; }
   h3 { font-size: 1.2rem; }
   .subtitle { font-size: 0.9rem; }
@@ -575,5 +578,4 @@ input[type="checkbox"]:hover {
     width: 85vw;
     height: auto;
   }
-
 }
