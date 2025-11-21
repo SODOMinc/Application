@@ -564,6 +564,11 @@ input[type="checkbox"]:hover {
   h3 { font-size: 1.2rem; }
   .subtitle { font-size: 0.9rem; }
 
+  .app-border {
+    width: 100% !important;
+    padding: 0; /* optional, makes more room */
+  }
+
   .question-text {
     font-size: clamp(1rem, 5vw, 1.4rem);
     text-align: left;
