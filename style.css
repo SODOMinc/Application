@@ -9,7 +9,7 @@
   --option-bg: #070102;
 
   /* Adjustable background-box width */
-  --box-max-width: 900px;
+  --box-max-width: 90vw;
 }
 
 /* ======= PAGE LAYOUT ======= */
@@ -532,8 +532,8 @@ input[type="checkbox"]:hover {
   border: 3px solid #808080;
   border-radius: 4px;
   box-shadow: 3px 3px 0 #404040, -2px -2px 0 #fff;
-  width: 420px;
-  max-width: 90vw;
+  width: 300px;
+  max-width: 25vw;
   padding: 0;
   animation: popupEntrance 0.35s ease-out;
 }
@@ -553,6 +553,11 @@ input[type="checkbox"]:hover {
 }
 
 .ad-popup-close {
+  display: flex;                /* make it a flex container */
+  align-items: center;          /* vertical centering */
+  justify-content: center;      /* horizontal centering */
+  font-size: 14px;              /* adjust to fit nicely */
+  line-height: 1;  
   width: 22px;
   height: 20px;
   background: #c0c0c0;

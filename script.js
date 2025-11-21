@@ -14,18 +14,21 @@ const appWrapper = document.getElementById("app");
 // ------------------------------
 // INIT
 // ------------------------------
+let ads = [];
+
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const [qRes, sRes, pRes] = await Promise.all([
+    const [qRes, sRes, pRes, aRes] = await Promise.all([
       fetch("questions.json"),
       fetch("scoring.json"),
       fetch("popups.json"),
       fetch("ads.json")
     ]);
+
     questions = await qRes.json();
-    scoring = await sRes.json();
-    popups = await pRes.json();
-    ads = await aRes.json();
+    scoring   = await sRes.json();
+    popups    = await pRes.json();
+    ads       = await aRes.json();   // <-- FIXED
   } catch (err) {
     console.error("Error loading files:", err);
   }
@@ -557,14 +560,24 @@ async function finalize() {
 // ===============================
 // ADVERTISEMENT POPUP (SEPARATE)
 // ===============================
+const adTitles = [
+  "HOLD UP!",
+  "INDULGE!",
+  "LOOK HERE!",
+  "ATTENTION!",
+  "DESIRE!"
+];
+
 function showAdPopup(text) {
   const popup = document.createElement("div");
   popup.classList.add("ad-popup-overlay");
 
+  const randomTitle = adTitles[Math.floor(Math.random() * adTitles.length)];
+
   popup.innerHTML = `
     <div class="ad-popup-box">
       <div class="ad-popup-titlebar">
-        <span class="ad-popup-title">ADVERTISEMENT</span>
+        <span class="ad-popup-title">${randomTitle}</span>
         <button class="ad-popup-close">X</button>
       </div>
 
