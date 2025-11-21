@@ -674,18 +674,4 @@ input[type="checkbox"]:hover {
     width: 85vw;
     height: auto;
   }
-
-  .ad-popup-overlay {
-    width: 85vw;
-    max-width: 90vw;
-    min-width: 70vw;
-    min-height: auto;
-    max-height: 80vh;
-    overflow-y: auto;  /* allow scrolling if content too big */
-  }
-
-  .ad-popup-content {
-    flex-direction: column; /* stack icon + text vertically if needed */
-    align-items: flex-start;
-  }
 }
