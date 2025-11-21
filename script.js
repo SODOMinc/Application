@@ -19,11 +19,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const [qRes, sRes, pRes] = await Promise.all([
       fetch("questions.json"),
       fetch("scoring.json"),
-      fetch("popups.json")
+      fetch("popups.json"),
+      fetch("ads.json")
     ]);
     questions = await qRes.json();
     scoring = await sRes.json();
     popups = await pRes.json();
+    ads = await aRes.json();
   } catch (err) {
     console.error("Error loading files:", err);
   }
@@ -103,6 +105,7 @@ function startSurvey() {
 // ------------------------------
 // QUESTION DISPLAY
 // ------------------------------
+let adIndex = 0;
 function showQuestion() {
   const container = document.getElementById("question-container");
   const nextBtn = document.getElementById("next-btn");
@@ -160,6 +163,13 @@ function showQuestion() {
   // Set next button action
   nextBtn.onclick = collectSelections;
 
+  //Advertisements
+  if (Math.random() < 0.4 && ads.length > 0) {
+    const ad = ads[adIndex % ads.length];
+    adIndex++;
+    showAdPopup(ad.text);
+  }
+  
   // Trigger popup if scheduled
   if (popupSchedule.includes(currentQuestion) || currentQuestion === questions.length - 1) {
     let popupData;
@@ -543,6 +553,43 @@ async function finalize() {
     console.error("Submit error:", err);
   }
 }
+
+// ===============================
+// ADVERTISEMENT POPUP (SEPARATE)
+// ===============================
+function showAdPopup(text) {
+  const popup = document.createElement("div");
+  popup.classList.add("ad-popup-overlay");
+
+  popup.innerHTML = `
+    <div class="ad-popup-box">
+      <div class="ad-popup-titlebar">
+        <span class="ad-popup-title">ADVERTISEMENT</span>
+        <button class="ad-popup-close">X</button>
+      </div>
+
+      <div class="ad-popup-content">
+        <p class="ad-popup-text">${text}</p>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+
+  // Disable main UI
+  appWrapper.classList.add("popups-active");
+  document.getElementById("question-screen").style.pointerEvents = "none";
+
+  // Close logic
+  popup.querySelector(".ad-popup-close").addEventListener("click", () => {
+    popup.remove();
+    if (!document.querySelector(".ad-popup-overlay")) {
+      appWrapper.classList.remove("popups-active");
+      document.getElementById("question-screen").style.pointerEvents = "auto";
+    }
+  });
+}
+
 
 // ------------------------------
 // ROLE & FLAVOR

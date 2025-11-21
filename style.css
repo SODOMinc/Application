@@ -518,6 +518,81 @@ input[type="checkbox"]:hover {
   box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #404040;
 }
 
+/* =====================================
+   SEPARATE ADVERTISEMENT POPUP
+===================================== */
+
+.ad-popup-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999999;
+  background: #c0c0c0;
+  border: 3px solid #808080;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 #404040, -2px -2px 0 #fff;
+  width: 420px;
+  max-width: 90vw;
+  padding: 0;
+  animation: popupEntrance 0.35s ease-out;
+}
+
+.ad-popup-titlebar {
+  height: 30px;
+  background: #000080;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #404040;
+}
+
+.ad-popup-close {
+  width: 22px;
+  height: 20px;
+  background: #c0c0c0;
+  border: 2px solid #808080;
+  border-radius: 2px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
+}
+
+.ad-popup-close:hover {
+  background: #a9a9a9;
+  transform: translateY(1px);
+}
+
+.ad-popup-content {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 2px solid #808080;
+  background: #c0c0c0;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
+}
+
+.ad-popup-icon {
+  width: 48px;
+  height: 48px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.ad-popup-text {
+  font-size: 1rem;
+  color: #000;
+}
+
 /* ======= FINAL SCREEN ======= */
 .final-screen {
   text-align: center;
