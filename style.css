@@ -674,4 +674,19 @@ input[type="checkbox"]:hover {
     width: 85vw;
     height: auto;
   }
+
+  .scroll-box::after {
+    content: "scroll ↓";
+    position: absolute;
+    bottom: 6px;
+    right: 8px;
+    font-size: 0.75rem;
+    color: #333;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .scroll-box {
+    position: relative; /* required for ::after */
+  }
 }
