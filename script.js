@@ -284,6 +284,11 @@ function spawnPopup(popupData, parent = null) {
         <div class="scroll-box">
           ${Array(25).fill(popupData.text).map(t => `<p>${t}</p>`).join("")}
         </div>
+
+        <div class="scroll-indicator-wrapper">
+          <div class="scroll-indicator"></div>
+        </div>
+
         <div class="agree-mini-container">
           <button class="agree-mini" disabled>I agree</button>
         </div>
@@ -418,9 +423,18 @@ function spawnPopup(popupData, parent = null) {
   if (type === 4) {
     const scrollBox = popup.querySelector(".scroll-box");
     btn.disabled = true;
+    const indicator = popup.querySelector(".scroll-indicator");
+
     scrollBox.addEventListener("scroll", () => {
-      const nearBottom = scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight - 10;
-      if (nearBottom) btn.disabled = false;
+      const scrollTop = scrollBox.scrollTop;
+      const scrollHeight = scrollBox.scrollHeight - scrollBox.clientHeight;
+
+      // progress %
+      const pct = (scrollTop / scrollHeight) * 100;
+      indicator.style.width = pct + "%";
+
+      // unlock button
+      if (pct >= 95) btn.disabled = false;
     });
 
     btn.addEventListener("click", () => {
