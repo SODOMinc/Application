@@ -127,9 +127,6 @@ function showAdPopup(text) {
     <div class="simple-ad-content">
       <p>${text}</p>
     </div>
-    <div class="simple-ad-footer">
-      <button class="simple-ad-ok">OK</button>
-    </div>
   `;
 
   overlay.appendChild(popup);
@@ -146,7 +143,6 @@ function showAdPopup(text) {
   }
 
   overlay.querySelector(".simple-ad-close").addEventListener("click", closePopup);
-  overlay.querySelector(".simple-ad-ok").addEventListener("click", closePopup);
 }
 
 // ------------------------------
