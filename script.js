@@ -41,10 +41,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   randomizeBackground();
 
   getNewUserId().then(id => {
-  userId = id;
-  document.getElementById("welcome-title").textContent = `applicant ${id}`;
-  const idEl = document.getElementById("applicant-id");
-  if (idEl) idEl.textContent = id; // <-- Update top-bar ID immediately if already visible
+    userId = id;
+    document.getElementById("welcome-title").textContent = `applicant ${id}`;
+    const idEl = document.getElementById("applicant-id");
+    if (idEl) idEl.textContent = id; // <-- Update top-bar ID immediately if already visible
   });
 
   document.getElementById("start-btn").addEventListener("click", startSurvey);
@@ -254,6 +254,16 @@ function getPopupType() {
   return type;
 }
 
+// -------------------
+// HELPER: RESTORE UI
+// -------------------
+function restoreUIIfNoPopups() {
+  if (!document.querySelector(".popup-overlay, .ad-popup-overlay, .intermission")) {
+    appWrapper.classList.remove("popups-active");
+    document.getElementById("question-screen").style.pointerEvents = "auto";
+  }
+}
+
 function spawnPopup(popupData, parent = null) {
   const popup = document.createElement("div");
   popup.classList.add("popup-overlay", "annoying");
@@ -331,17 +341,15 @@ function spawnPopup(popupData, parent = null) {
   appWrapper.classList.add("popups-active");
   document.getElementById("question-screen").style.pointerEvents = "none";
 
-  // ---------------- TYPE-1 PROGRESS TIMER WITH EARLY-CLICK HANDLING ----------------
+  // ---------------- TYPE-1 ----------------
   if (type === 1) {
     let finished = false;
     let canClose = false;
-
-    // create popup + progress bar as before
     const progressContainer = popup.querySelector(".progress-bar");
     const bar = popup.querySelector(".progress-inner");
-    const speedMultiplier = 1; // or your existing value
+    const speedMultiplier = 1;
     let start = performance.now();
-    let remainingTime = 3000; // or your current setting
+    let remainingTime = 3000;
 
     function animate(t) {
       const elapsed = (t - start) / speedMultiplier;
@@ -352,7 +360,7 @@ function spawnPopup(popupData, parent = null) {
         requestAnimationFrame(animate);
       } else if (!finished) {
         finished = true;
-        canClose = true; // ✅ mark popup as closable now
+        canClose = true;
         if (progressContainer) progressContainer.remove();
       }
     }
@@ -361,26 +369,22 @@ function spawnPopup(popupData, parent = null) {
 
     btn.addEventListener("click", (e) => {
       if (!canClose) {
-        // Early click → flash red + slow timer a bit
         bar.style.background = "red";
         setTimeout(() => {
           bar.style.background = "linear-gradient(to right, #000080, #0000cd)";
         }, 500);
-
-        remainingTime *= 1.3; // slightly extend timer
+        remainingTime *= 1.3;
         e.stopPropagation();
         return;
       }
 
-      // ✅ Normal close when finished
       popup.remove();
-      appWrapper.classList.remove("popups-active");
-      document.getElementById("question-screen").style.pointerEvents = "auto";
+      restoreUIIfNoPopups();
       if (popupData.text) answers[popupData.text] = "I agree";
     });
   }
 
-  // ---------------- TYPE-2 MULTI-STEP ----------------
+  // ---------------- TYPE-2 ----------------
   if (type === 2) {
     let step = 0;
     const stepTexts = ["I agree", "I really agree", "I totally agree"];
@@ -391,22 +395,16 @@ function spawnPopup(popupData, parent = null) {
         return;
       }
       popup.remove();
-      if (document.querySelectorAll(".popup-overlay.annoying").length === 0) {
-        appWrapper.classList.remove("popups-active");
-        document.getElementById("question-screen").style.pointerEvents = "auto";
-      }
+      restoreUIIfNoPopups();
       if (popupData.text) answers[popupData.text] = "I agree";
     });
   }
 
-  // ---------------- TYPE-3 SPAWN CHILDREN ----------------
+  // ---------------- TYPE-3 ----------------
   if (type === 3) {
     btn.addEventListener("click", () => {
       popup.remove();
-      if (document.querySelectorAll(".popup-overlay.annoying").length === 0) {
-        appWrapper.classList.remove("popups-active");
-        document.getElementById("question-screen").style.pointerEvents = "auto";
-      }
+      restoreUIIfNoPopups();
       const spawnCount = 1 + Math.floor(Math.random() * 2);
       for (let i = 0; i < spawnCount; i++) {
         const delay = 150 + Math.random() * 200;
@@ -419,7 +417,7 @@ function spawnPopup(popupData, parent = null) {
     });
   }
 
-  // ---------------- TYPE-4 SCROLL ----------------
+  // ---------------- TYPE-4 ----------------
   if (type === 4) {
     const scrollBox = popup.querySelector(".scroll-box");
     btn.disabled = true;
@@ -428,59 +426,17 @@ function spawnPopup(popupData, parent = null) {
     scrollBox.addEventListener("scroll", () => {
       const scrollTop = scrollBox.scrollTop;
       const scrollHeight = scrollBox.scrollHeight - scrollBox.clientHeight;
-
-      // progress %
       const pct = (scrollTop / scrollHeight) * 100;
       indicator.style.width = pct + "%";
-
-      // unlock button
       if (pct >= 95) btn.disabled = false;
     });
 
     btn.addEventListener("click", () => {
       popup.remove();
-      if (document.querySelectorAll(".popup-overlay.annoying").length === 0) {
-        appWrapper.classList.remove("popups-active");
-        document.getElementById("question-screen").style.pointerEvents = "auto";
-      }
+      restoreUIIfNoPopups();
       if (popupData.text) answers[popupData.text] = "I agree";
     });
   }
-}
-
-// ------------------------------
-// COLLECT ANSWERS
-// ------------------------------
-function collectSelections() {
-  const q = questions[currentQuestion];
-  const selected = Array.from(document.querySelectorAll(`input[name="q${q.id}"]:checked`)).map(
-    el => el.value
-  );
-  answers[q.question] = selected.join(", ");
-  selected.forEach(val => addScore(q.id, val));
-
-  goNext();
-}
-
-// ------------------------------
-// SCORING / NAVIGATION
-// ------------------------------
-function addScore(qid, val) {
-  const map = scoring[String(qid)];
-  if (!map) return;
-  const pts = map[val];
-  if (typeof pts === "number") wickednessScore += pts;
-}
-
-function goNext() {
-  currentQuestion++;
-  const halfway = Math.floor(questions.length / 2);
-  if (currentQuestion === halfway) {
-    showIntermissionPopup();
-    return;
-  }
-  if (currentQuestion < questions.length) showQuestion();
-  else finalize();
 }
 
 // ------------------------------
@@ -490,7 +446,6 @@ function showIntermissionPopup() {
   const popup = document.createElement("div");
   popup.classList.add("popup-overlay", "intermission");
 
-  // determine icon type based on wickednessScore
   const iconFile = wickednessScore > 30 ? "int_sweet.png" : "int_sour.png";
 
   popup.innerHTML = `
@@ -509,7 +464,6 @@ function showIntermissionPopup() {
 
   document.body.appendChild(popup);
 
-  // Set the icon background
   const iconDiv = popup.querySelector(".icon");
   iconDiv.style.backgroundImage = `url('${iconFile}')`;
   iconDiv.style.backgroundSize = "contain";
@@ -522,7 +476,6 @@ function showIntermissionPopup() {
   const input = popup.querySelector("#intermission-input");
   const btn = popup.querySelector("#intermission-next");
 
-  // Block main UI while popup is active (blur background & disable pointer events)
   appWrapper.classList.add("popups-active");
   document.getElementById("question-screen").style.pointerEvents = "none";
 
@@ -533,11 +486,7 @@ function showIntermissionPopup() {
   btn.addEventListener("click", () => {
     answers["Intermission Song"] = input.value.trim();
     popup.remove();
-
-    // Restore main UI when intermission popup is closed
-    appWrapper.classList.remove("popups-active");
-    document.getElementById("question-screen").style.pointerEvents = "auto";
-
+    restoreUIIfNoPopups();
     showQuestion();
   });
 }
@@ -552,7 +501,7 @@ async function finalize() {
 
   const role = assignRole(wickednessScore, answers);
   const flavor = getFlavorText(role);
-  const ending = getEndingText(); // separate helper
+  const ending = getEndingText();
 
   container.innerHTML = `
     <div class="final-screen">
@@ -604,20 +553,14 @@ function showAdPopup(text) {
 
   document.body.appendChild(popup);
 
-  // Disable main UI
   appWrapper.classList.add("popups-active");
   document.getElementById("question-screen").style.pointerEvents = "none";
 
-  // Close logic
   popup.querySelector(".ad-popup-close").addEventListener("click", () => {
     popup.remove();
-    if (!document.querySelector(".ad-popup-overlay")) {
-      appWrapper.classList.remove("popups-active");
-      document.getElementById("question-screen").style.pointerEvents = "auto";
-    }
+    restoreUIIfNoPopups();
   });
 }
-
 
 // ------------------------------
 // ROLE & FLAVOR
@@ -663,4 +606,36 @@ function getFlavorText(role) {
 
 function getEndingText() {
   return `THE GATES OF SODOM ARE OPEN.<br>YOUR HOMECOMING AWAITS YOU.`;
+}
+
+// ------------------------------
+// COLLECT ANSWERS & SCORING
+// ------------------------------
+function collectSelections() {
+  const q = questions[currentQuestion];
+  const selected = Array.from(document.querySelectorAll(`input[name="q${q.id}"]:checked`)).map(
+    el => el.value
+  );
+  answers[q.question] = selected.join(", ");
+  selected.forEach(val => addScore(q.id, val));
+
+  goNext();
+}
+
+function addScore(qid, val) {
+  const map = scoring[String(qid)];
+  if (!map) return;
+  const pts = map[val];
+  if (typeof pts === "number") wickednessScore += pts;
+}
+
+function goNext() {
+  currentQuestion++;
+  const halfway = Math.floor(questions.length / 2);
+  if (currentQuestion === halfway) {
+    showIntermissionPopup();
+    return;
+  }
+  if (currentQuestion < questions.length) showQuestion();
+  else finalize();
 }
