@@ -400,7 +400,7 @@ function spawnPopup(popupData, parent = null) {
   }
 
   // ---------------- TYPE-3 SPAWN CHILDREN ----------------
-  if (type === 3 && !parent) {
+  if (type === 3) {
     btn.addEventListener("click", () => {
       popup.remove();
       if (document.querySelectorAll(".popup-overlay.annoying").length === 0) {
@@ -531,18 +531,14 @@ function showIntermissionPopup() {
   });
 
   btn.addEventListener("click", () => {
-      const song = input.value.trim();
+    answers["Intermission Song"] = input.value.trim();
+    popup.remove();
 
-      // Save song to answers
-      answers["Intermission Song"] = song;
+    // Restore main UI when intermission popup is closed
+    appWrapper.classList.remove("popups-active");
+    document.getElementById("question-screen").style.pointerEvents = "auto";
 
-      popup.remove();
-
-      // Restore main UI when intermission popup is closed
-      appWrapper.classList.remove("popups-active");
-      document.getElementById("question-screen").style.pointerEvents = "auto";
-
-      showQuestion();
+    showQuestion();
   });
 }
 
