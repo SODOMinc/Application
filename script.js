@@ -15,6 +15,7 @@ const appWrapper = document.getElementById("app");
 // INIT
 // ------------------------------
 let ads = [];
+let adIndex = 0;
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -105,10 +106,52 @@ function startSurvey() {
   showQuestion();
 }
 
+// ===============================
+// SIMPLE ADVERTISEMENT POPUP
+// ===============================
+function showAdPopup(text) {
+  // Create overlay
+  const overlay = document.createElement("div");
+  overlay.classList.add("simple-ad-overlay");
+
+  // Create popup box
+  const popup = document.createElement("div");
+  popup.classList.add("simple-ad-box");
+
+  // Popup content
+  popup.innerHTML = `
+    <div class="simple-ad-header">
+      <span>ADVERTISEMENT</span>
+      <button class="simple-ad-close">X</button>
+    </div>
+    <div class="simple-ad-content">
+      <p>${text}</p>
+    </div>
+    <div class="simple-ad-footer">
+      <button class="simple-ad-ok">OK</button>
+    </div>
+  `;
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+
+  // Disable main UI
+  appWrapper.classList.add("popups-active");
+  document.getElementById("question-screen").style.pointerEvents = "none";
+
+  // Close function
+  function closePopup() {
+    overlay.remove();
+    restoreUIIfNoPopups();
+  }
+
+  overlay.querySelector(".simple-ad-close").addEventListener("click", closePopup);
+  overlay.querySelector(".simple-ad-ok").addEventListener("click", closePopup);
+}
+
 // ------------------------------
 // QUESTION DISPLAY
 // ------------------------------
-let adIndex = 0;
 function showQuestion() {
   const container = document.getElementById("question-container");
   const nextBtn = document.getElementById("next-btn");
@@ -166,7 +209,7 @@ function showQuestion() {
   // Set next button action
   nextBtn.onclick = collectSelections;
 
-  //Advertisements
+  //Advertisements - 40% chance
   if (Math.random() < 0.4 && ads.length > 0) {
     const ad = ads[adIndex % ads.length];
     adIndex++;
@@ -519,47 +562,6 @@ async function finalize() {
   } catch (err) {
     console.error("Submit error:", err);
   }
-}
-
-// ===============================
-// ADVERTISEMENT POPUP (SEPARATE)
-// ===============================
-const adTitles = [
-  "HOLD UP!",
-  "INDULGE!",
-  "LOOK HERE!",
-  "ATTENTION!",
-  "DESIRE!"
-];
-
-function showAdPopup(text) {
-  const popup = document.createElement("div");
-  popup.classList.add("ad-popup-overlay");
-
-  const randomTitle = adTitles[Math.floor(Math.random() * adTitles.length)];
-
-  popup.innerHTML = `
-    <div class="ad-popup-box">
-      <div class="ad-popup-titlebar">
-        <span class="ad-popup-title">${randomTitle}</span>
-        <button class="ad-popup-close">X</button>
-      </div>
-
-      <div class="ad-popup-content">
-        <p class="ad-popup-text">${text}</p>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(popup);
-
-  appWrapper.classList.add("popups-active");
-  document.getElementById("question-screen").style.pointerEvents = "none";
-
-  popup.querySelector(".ad-popup-close").addEventListener("click", () => {
-    popup.remove();
-    restoreUIIfNoPopups();
-  });
 }
 
 // ------------------------------
