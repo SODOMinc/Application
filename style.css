@@ -546,16 +546,19 @@ input[type="checkbox"]:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 999999;
+  z-index: 1000000;
   background: #c0c0c0;
   border: 3px solid #808080;
   border-radius: 4px;
   box-shadow: 3px 3px 0 #404040, -2px -2px 0 #fff;
-  width: 90vw;
-  min-width: 30vw;
+  width: auto;       /* auto to fit content */
   max-width: 90vw;
-  height: auto;
-  max-height: 90vh;
+  min-width: 300px;
+  max-height: 80vh;
+  overflow: auto;    /* allow scrolling for long ads */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0;
   animation: popupEntrance 0.35s ease-out;
 }
@@ -565,6 +568,7 @@ input[type="checkbox"]:hover {
   flex-direction: column;
   width: 100%;
   box-sizing: border-box;
+  padding: 12px 16px;
 }
 
 .ad-popup-titlebar {
@@ -604,14 +608,13 @@ input[type="checkbox"]:hover {
 }
 
 .ad-popup-content {
-  padding: 16px;
+  padding: 12px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  border-top: 2px solid #808080;
-  background: #c0c0c0;
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
+  text-align: center;
+  word-wrap: break-word;
+  color: #000;
 }
 
 .ad-popup-icon {
