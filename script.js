@@ -531,13 +531,18 @@ function showIntermissionPopup() {
   });
 
   btn.addEventListener("click", () => {
-    popup.remove();
+      const song = input.value.trim();
 
-    // Restore main UI when intermission popup is closed
-    appWrapper.classList.remove("popups-active");
-    document.getElementById("question-screen").style.pointerEvents = "auto";
+      // Save song to answers
+      answers["Intermission Song"] = song;
 
-    showQuestion();
+      popup.remove();
+
+      // Restore main UI when intermission popup is closed
+      appWrapper.classList.remove("popups-active");
+      document.getElementById("question-screen").style.pointerEvents = "auto";
+
+      showQuestion();
   });
 }
 
