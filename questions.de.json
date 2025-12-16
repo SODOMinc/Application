@@ -1,5 +1,5 @@
 [
-  { "id": 1, "type": "single", "question": "Was ist dein aktueller ziviler Status?", "options": ["Rückkehrender Bürger", "Migrant", "Expat", "Flüchtling", "Diplomat"] },
+  { "id": 1, "type": "single", "question": "Was ist dein aktueller ziviler Status?", "options": ["Rückkehrende:r Bürger:in", "Migrant:in", "Expat", "Flüchtling", "Diplomat:in"] },
   { "id": 2, "type": "single", "question": "Was ist dein Geschlecht?", "options": ["Standard", "Salzsäule", "Abweichend"] },
   { "id": 3, "type": "single", "question": "Was ist dein Familienstand?", "options": ["Ledig", "Verheiratet", "In Sünde lebend"] },
   { "id": 4, "type": "single", "question": "Wurde bei dir jemals lüsterne Gedanken diagnostiziert?", "options": ["Ja", "Nein"] },
