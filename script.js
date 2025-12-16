@@ -106,45 +106,6 @@ function startSurvey() {
   showQuestion();
 }
 
-// ===============================
-// SIMPLE ADVERTISEMENT POPUP
-// ===============================
-function showAdPopup(text) {
-  // Create overlay
-  const overlay = document.createElement("div");
-  overlay.classList.add("simple-ad-overlay");
-
-  // Create popup box
-  const popup = document.createElement("div");
-  popup.classList.add("simple-ad-box");
-
-  // Popup content
-  popup.innerHTML = `
-    <div class="simple-ad-header">
-      <span>ADVERTISEMENT</span>
-      <button class="simple-ad-close">X</button>
-    </div>
-    <div class="simple-ad-content">
-      <p>${text}</p>
-    </div>
-  `;
-
-  overlay.appendChild(popup);
-  document.body.appendChild(overlay);
-
-  // Disable main UI
-  appWrapper.classList.add("popups-active");
-  document.getElementById("question-screen").style.pointerEvents = "none";
-
-  // Close function
-  function closePopup() {
-    overlay.remove();
-    restoreUIIfNoPopups();
-  }
-
-  overlay.querySelector(".simple-ad-close").addEventListener("click", closePopup);
-}
-
 // ------------------------------
 // QUESTION DISPLAY
 // ------------------------------
@@ -204,13 +165,6 @@ function showQuestion() {
 
   // Set next button action
   nextBtn.onclick = collectSelections;
-
-  //Advertisements - 40% chance
-  if (Math.random() < 0.4 && ads.length > 0) {
-    const ad = ads[adIndex % ads.length];
-    adIndex++;
-    showAdPopup(ad.text);
-  }
   
   // Trigger popup if scheduled
   if (popupSchedule.includes(currentQuestion) || currentQuestion === questions.length - 1) {
@@ -268,14 +222,14 @@ function getPopupType() {
   }
 
   // Try to pick a new type that hasn’t been used yet (prefer diversity)
-  const available = [1, 2, 3, 4].filter(t => !usedPopupTypes.has(t));
+  const available = [2, 3, 4].filter(t => !usedPopupTypes.has(t));
 
   // If all have been used or we're forced to repeat, pick from all 4
   if (available.length > 0) {
     type = available[Math.floor(Math.random() * available.length)];
   } else {
     do {
-      type = Math.floor(Math.random() * 4) + 1;
+      type = Math.floor(Math.random() * 3) + 2;
     } while (lastPopupType === type && repeatCount >= 2);
   }
 
@@ -380,49 +334,6 @@ function spawnPopup(popupData, parent = null) {
   appWrapper.classList.add("popups-active");
   document.getElementById("question-screen").style.pointerEvents = "none";
 
-  // ---------------- TYPE-1 ----------------
-  if (type === 1) {
-    let finished = false;
-    let canClose = false;
-    const progressContainer = popup.querySelector(".progress-bar");
-    const bar = popup.querySelector(".progress-inner");
-    const speedMultiplier = 1;
-    let start = performance.now();
-    let remainingTime = 3000;
-
-    function animate(t) {
-      const elapsed = (t - start) / speedMultiplier;
-      const progress = Math.max(0, 1 - elapsed / remainingTime);
-      bar.style.width = progress * 100 + "%";
-
-      if (!finished && progress > 0) {
-        requestAnimationFrame(animate);
-      } else if (!finished) {
-        finished = true;
-        canClose = true;
-        if (progressContainer) progressContainer.remove();
-      }
-    }
-
-    requestAnimationFrame(animate);
-
-    btn.addEventListener("click", (e) => {
-      if (!canClose) {
-        bar.style.background = "red";
-        setTimeout(() => {
-          bar.style.background = "linear-gradient(to right, #000080, #0000cd)";
-        }, 500);
-        remainingTime *= 1.3;
-        e.stopPropagation();
-        return;
-      }
-
-      popup.remove();
-      restoreUIIfNoPopups();
-      if (popupData.text) answers[popupData.text] = "I agree";
-    });
-  }
-
   // ---------------- TYPE-2 ----------------
   if (type === 2) {
     let step = 0;
@@ -476,58 +387,6 @@ function spawnPopup(popupData, parent = null) {
       if (popupData.text) answers[popupData.text] = "I agree";
     });
   }
-}
-
-// ------------------------------
-// INTERMISSION POPUP
-// ------------------------------
-function showIntermissionPopup() {
-  const popup = document.createElement("div");
-  popup.classList.add("popup-overlay", "intermission");
-
-  const iconFile = wickednessScore > 30 ? "int_sweet.png" : "int_sour.png";
-
-  popup.innerHTML = `
-    <div class="title-bar">
-      <span class="title-text">CONTROL POINT</span>
-    </div>
-    <div class="popup-box intermission">
-      <div class="icon"></div>
-      <div class="text">
-        <p>Please contribute a meaningful song to SODOM</p>
-        <input id="intermission-input" type="text" placeholder="song name...">
-        <button id="intermission-next" class="agree-mini" disabled>next</button>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(popup);
-
-  const iconDiv = popup.querySelector(".icon");
-  iconDiv.style.backgroundImage = `url('${iconFile}')`;
-  iconDiv.style.backgroundSize = "contain";
-  iconDiv.style.backgroundPosition = "center";
-  iconDiv.style.backgroundRepeat = "no-repeat";
-  iconDiv.style.width = "64px";
-  iconDiv.style.height = "64px";
-  iconDiv.style.marginBottom = "12px";
-
-  const input = popup.querySelector("#intermission-input");
-  const btn = popup.querySelector("#intermission-next");
-
-  appWrapper.classList.add("popups-active");
-  document.getElementById("question-screen").style.pointerEvents = "none";
-
-  input.addEventListener("input", () => {
-    btn.disabled = input.value.trim().length <= 3;
-  });
-
-  btn.addEventListener("click", () => {
-    answers["Intermission Song"] = input.value.trim();
-    popup.remove();
-    restoreUIIfNoPopups();
-    showQuestion();
-  });
 }
 
 // ------------------------------
@@ -629,11 +488,6 @@ function addScore(qid, val) {
 
 function goNext() {
   currentQuestion++;
-  const halfway = Math.floor(questions.length / 2);
-  if (currentQuestion === halfway) {
-    showIntermissionPopup();
-    return;
-  }
   if (currentQuestion < questions.length) showQuestion();
   else finalize();
 }
