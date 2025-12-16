@@ -11,11 +11,65 @@ let repeatCount = 0;
 const scriptURL = "https://script.google.com/macros/s/AKfycbz0juFAT5s8c3GsO-HZD9ctuF7jc7KMZfz63L-h-eWsOqtYdOub8D3UaDY0qxndwWAY8w/exec";
 const appWrapper = document.getElementById("app");
 
-// ------------------------------
-// INIT
-// ------------------------------
-let ads = [];
-let adIndex = 0;
+let currentLang = 'en';  // default language
+const translations = {
+  en: { 
+    startApplication: "start application",
+    next: "next",
+    loading: "loading...",
+    welcomeSubtitle: "Join the new SODOM. Now more wicked than before. Sign up to be part of its rebirth.",
+    agree: "I agree",
+    agreeStep2: "I really agree",
+    agreeStep3: "I totally agree",
+    finalEnding: "THE GATES OF SODOM ARE OPEN.<br>YOUR HOMECOMING AWAITS YOU.",
+    roles: {
+      "CIVIC TENDER": "Civic Tender",
+      "PLEASURE CURATOR": "Pleasure Curator",
+      "DEALER OF VICES": "Dealer of Vices",
+      "GUARDIAN OF CORRUPTION": "Guardian of Corruption",
+      "HEALER": "Healer",
+      "HIGH HEDONIST": "High Hedonist",
+      "CONSUL OF SINS": "Consul of Sins"
+    },
+    flavor: {
+      "CIVIC TENDER": "You will keep the fountains clean and the licenses current.",
+      "PLEASURE CURATOR": "Your hands will sculpt the city’s indulgences.",
+      "DEALER OF VICES": "Here you can deal in every delight outlawed by gentler worlds.",
+      "GUARDIAN OF CORRUPTION": "You will operate in alleys where light fears to tread.",
+      "HEALER": "You keep their fires lit.",
+      "HIGH HEDONIST": "Crowds chant your name, your presence fuels the city.",
+      "CONSUL OF SINS": "You whisper commands and the city will rearrange itself."
+    }
+  },
+  de: { 
+    startApplication: "Bewerbung starten",
+    next: "weiter",
+    loading: "lade...",
+    welcomeSubtitle: "Tritt dem neuen SODOM bei. Jetzt noch verderbter als zuvor. Melde dich an, um Teil seiner Wiedergeburt zu sein.",
+    agree: "Ich stimme zu",
+    agreeStep2: "Ich stimme wirklich zu",
+    agreeStep3: "Ich stimme vollkommen zu",
+    finalEnding: "DIE TORE VON SODOM SIND GEÖFFNET.<br>DEINE HEIMKEHR WIRD ERWARTET.",
+    roles: {
+      "CIVIC TENDER": "Städtische:r Betreuer:in",
+      "PLEASURE CURATOR": "Kurator:in des Vergnügens",
+      "DEALER OF VICES": "Händler:in der Laster",
+      "GUARDIAN OF CORRUPTION": "Wächter:in der Verderbnis",
+      "HEALER": "Heiler:in",
+      "HIGH HEDONIST": "Hochgenießer:in",
+      "CONSUL OF SINS": "Konsul der Sünden"
+    },
+    flavor: {
+      "CIVIC TENDER": "Du sorgst dafür, dass die Brunnen rein bleiben und die Stadtordnung aufrechterhalten wird.",
+      "PLEASURE CURATOR": "Deine Hände formen die geheimen Genüsse der Stadt.",
+      "DEALER OF VICES": "Hier handelst du mit allen verbotenen Freuden, die die Welt verbannt hat.",
+      "GUARDIAN OF CORRUPTION": "Du agierst in dunklen Gassen, wo das Licht sich nicht wagt.",
+      "HEALER": "Du nährst und bewahrst die Feuer derer, die dir vertrauen.",
+      "HIGH HEDONIST": "Die Menge ruft deinen Namen, deine Präsenz entfacht die Lust der Stadt.",
+      "CONSUL OF SINS": "Du flüsterst Befehle, und die Stadt biegt sich nach deinem Willen."
+    }
+  }
+};
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -29,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     questions = await qRes.json();
     scoring   = await sRes.json();
     popups    = await pRes.json();
-    ads       = await aRes.json();   // <-- FIXED
+    ads       = await aRes.json();
   } catch (err) {
     console.error("Error loading files:", err);
   }
@@ -38,17 +92,54 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("question-screen").classList.add("hidden");
   document.getElementById("welcome-title").textContent = "loading...";
 
-  // random background on load
   randomizeBackground();
 
   getNewUserId().then(id => {
     userId = id;
     document.getElementById("welcome-title").textContent = `applicant ${id}`;
     const idEl = document.getElementById("applicant-id");
-    if (idEl) idEl.textContent = id; // <-- Update top-bar ID immediately if already visible
+    if (idEl) idEl.textContent = id;
   });
 
-  document.getElementById("start-btn").addEventListener("click", startSurvey);
+  // Start button
+  const startBtn = document.getElementById("start-btn");
+  startBtn.textContent = translations[currentLang].startApplication;
+  startBtn.addEventListener("click", startSurvey);
+
+  // ------------------------------
+  // LANGUAGE SWITCH (ADD HERE)
+  // ------------------------------
+  const languageSelect = document.getElementById("language-switch");
+
+  languageSelect.addEventListener("change", async (e) => {
+    currentLang = e.target.value;
+
+    // Update static welcome screen text
+    document.getElementById("start-btn").textContent = translations[currentLang].startApplication;
+    document.getElementById("next-btn").textContent = translations[currentLang].next;
+    document.querySelector("#welcome-screen .subtitle").innerHTML = translations[currentLang].welcomeSubtitle;
+
+    try {
+      const qRes = await fetch(currentLang === "de" ? "questions.de.json" : "questions.json");
+      questions = await qRes.json();
+
+      const pRes = await fetch(currentLang === "de" ? "popups.de.json" : "popups.json");
+      popups = await pRes.json();
+
+      // Optionally refresh question if survey started
+      if (document.getElementById("welcome-screen").classList.contains("hidden")) {
+          // We are mid-survey, re-render the current question in the new language
+          showQuestion();
+      }
+
+      // Update button text
+      document.getElementById("start-btn").textContent = translations[currentLang].startApplication;
+      document.getElementById("next-btn").textContent = translations[currentLang].next;
+
+    } catch (err) {
+      console.error("Error loading language files:", err);
+    }
+  });
 });
 
 async function getNewUserId() {
@@ -123,7 +214,7 @@ function showQuestion() {
   fitQuestionText();
 
   nextBtn.disabled = true;
-  nextBtn.textContent = "next";
+  nextBtn.textContent = translations[currentLang].next;
 
   const wrapper = container.querySelector(".options-wrapper");
 
@@ -329,6 +420,7 @@ function spawnPopup(popupData, parent = null) {
   }
   
   const btn = popup.querySelector(".agree-mini");
+  btn.textContent = translations[currentLang].agree;
 
   // Block main UI while popup is active
   appWrapper.classList.add("popups-active");
@@ -337,7 +429,12 @@ function spawnPopup(popupData, parent = null) {
   // ---------------- TYPE-2 ----------------
   if (type === 2) {
     let step = 0;
-    const stepTexts = ["I agree", "I really agree", "I totally agree"];
+    const stepTexts = [
+      translations[currentLang].agree,
+      translations[currentLang].agreeStep2,
+      translations[currentLang].agreeStep3
+    ];
+
     btn.addEventListener("click", () => {
       if (step < 2) {
         step++;
@@ -370,6 +467,7 @@ function spawnPopup(popupData, parent = null) {
   // ---------------- TYPE-4 ----------------
   if (type === 4) {
     const scrollBox = popup.querySelector(".scroll-box");
+    btn.textContent = translations[currentLang].agree;
     btn.disabled = true;
     const indicator = popup.querySelector(".scroll-indicator");
 
@@ -403,9 +501,9 @@ async function finalize() {
 
   container.innerHTML = `
     <div class="final-screen">
-      <h2 class="final-role">${role}</h2>
+      <h2 class="final-role">${translations[currentLang].roles[role] || role}</h2>
       <p class="final-flavor">${flavor}</p>
-      <p class="final-ending">${ending}</p>
+      <p class="final-ending">${translations[currentLang].finalEnding}</p>
     </div>
   `;
 
@@ -449,21 +547,28 @@ function assignRole(score, answersObj) {
 }
 
 function getFlavorText(role) {
-  const t = {
-    "CIVIC TENDER": `You will keep the fountains clean and the licenses current.`,
-    "PLEASURE CURATOR": `Your hands will sculpt the city’s indulgences.`,
-    "DEALER OF VICES": `Here you can deal in every delight outlawed by gentler worlds.`,
-    "GUARDIAN OF CORRUPTION": `You will operate in alleys where light fears to tread.`,
-    "HEALER": `You keep their fires lit.`,
-    "HIGH HEDONIST": `Crowds chant your name, your presence fuels the city.`,
-    "CONSUL OF SINS": `You whisper commands and the city will rearrange itself.`
-  };
-  return t[role];
+  return translations[currentLang].flavor[role] || "";
 }
 
 function getEndingText() {
-  return `THE GATES OF SODOM ARE OPEN.<br>YOUR HOMECOMING AWAITS YOU.`;
+  return translations[currentLang].finalEnding;
 }
+
+// ------------------------------
+// Question Language
+// ------------------------------
+async function loadQuestions() {
+  try {
+    const qRes = await fetch(currentLang === 'en' ? 'questions.json' : 'questions.de.json');
+    const pRes = await fetch(currentLang === 'en' ? 'popups.json' : 'popups.de.json');
+
+    questions = await qRes.json();
+    popups = await pRes.json();
+  } catch (err) {
+    console.error("Error loading questions/popups:", err);
+  }
+}
+
 
 // ------------------------------
 // COLLECT ANSWERS & SCORING

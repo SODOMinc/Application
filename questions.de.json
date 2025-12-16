@@ -1,0 +1,20 @@
+[
+  { "id": 1, "type": "single", "question": "Was ist dein aktueller ziviler Status?", "options": ["Rückkehrender Bürger", "Migrant", "Expat", "Flüchtling", "Diplomat"] },
+  { "id": 2, "type": "single", "question": "Was ist dein Geschlecht?", "options": ["Standard", "Salzsäule", "Abweichend"] },
+  { "id": 3, "type": "single", "question": "Was ist dein Familienstand?", "options": ["Ledig", "Verheiratet", "In Sünde lebend"] },
+  { "id": 4, "type": "single", "question": "Wurde bei dir jemals lüsterne Gedanken diagnostiziert?", "options": ["Ja", "Nein"] },
+  { "id": 5, "type": "multiple", "question": "Wann hast du dich zuletzt wirklich frei gefühlt?", "options": ["Nie", "Im Schlaf", "Im Mutterleib", "Beim Sündigen", "Ich denke nicht darüber nach"] },
+  { "id": 6, "type": "multiple", "question": "Leidest du unter einer der folgenden Erkrankungen?", "options": ["Veganismus", "Hoffnung", "Selbstlosigkeit", "Integrität", "Liberalismus", "Sozialismus", "Nachhaltigkeit", "Ich bin nicht durch Rücksicht auf andere eingeschränkt"] },
+  { "id": 7, "type": "multiple", "question": "Nimmst du Medikamente gegen eines der folgenden Probleme?", "options": ["Depression", "Konzentration", "Stress", "Schlaflosigkeit", "Paranoia", "Weil es Spaß macht", "Nein, ich bin stark und stabil gebaut"] },
+  { "id": 8, "type": "single", "question": "Hast du jemals getötet?", "options": ["Ja", "Nein"] },
+  { "id": 9, "type": "single", "question": "Hast du jemals gestohlen?", "options": ["Ja", "Nein"] },
+  { "id": 10, "type": "single", "question": "Hattest du jemals sexuellen Verkehr außerhalb der Ehe?", "options": ["Ja", "Nein"] },
+  { "id": 11, "type": "multiple", "question": "Warst du jemals Teil einer religiösen Bewegung?", "options": ["Ja, monotheistisch", "Ja, polytheistisch", "Ich diene nur mir selbst"] },
+  { "id": 12, "type": "multiple", "question": "Warst du jemals Teil einer politischen Bewegung?", "options": ["Ja, wirtschaftlich", "Ja, sozialpolitisch", "Ja, monarchistisch", "Nein, ich sehe alle Seiten"] },
+  { "id": 13, "type": "single", "question": "Bist du drogensüchtig?", "options": ["Ja", "Nein"] },
+  { "id": 14, "type": "single", "question": "Bist du süchtig nach Gott?", "options": ["Ja", "Nein"] },
+  { "id": 15, "type": "single", "question": "Bist du süchtig nach Macht?", "options": ["Ja", "Nein"] },
+  { "id": 16, "type": "multiple", "question": "Bist du Teil einer der folgenden Gemeinschaften?", "options": ["Queer", "P.O.C", "Weiblich", "Hedonisten", "Ich passe mich gerne an"] },
+  { "id": 17, "type": "single", "question": "Würdest du dein eigenes Leben dem eines anderen vorziehen?", "options": ["Ja", "Nein"] },
+  { "id": 18, "type": "single", "question": "Schwörst du SODOM ewige Treue?", "options": ["Immer", "Ja"] }
+]
